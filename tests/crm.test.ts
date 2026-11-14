@@ -939,9 +939,10 @@ suite("CRM e cotações", () => {
       expect(linhas[2]).toMatchObject({ userId: ids.OPERATION, summary: "Contato com Indústria Interessada registrado" });
 
       await banco.sistema.quoteLead.update({ where: { id: lead.id }, data: { lastActivityAt: haDias(5) } });
+      const antesDoMesmoStatus = await atividade();
       // Mesmo status de novo não é troca: a atividade fica.
       expect((await alterar(lead.id, { status: "NEW" })).status).toBe(200);
-      expect(await atividade()).toBe(haDias(5).getTime() - (haDias(5).getTime() % 1000) + ((await atividade()) % 1000));
+      expect(await atividade()).toBe(antesDoMesmoStatus);
       expect((await alterar(lead.id, { status: "CONTACTED" })).status).toBe(200);
       expect(await atividade()).toBeGreaterThan(Date.now() - 5000);
 
