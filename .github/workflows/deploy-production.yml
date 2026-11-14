@@ -248,7 +248,8 @@ jobs:
           set -euo pipefail
           [[ "$GITHUB_EVENT_NAME" != pull_request* ]]
           [[ "$GITHUB_REF" == "refs/heads/$DEFAULT_BRANCH" ]]
-          image_name="ghcr.io/${GITHUB_REPOSITORY,,}"
+          # O deploy valida este pacote; renomear o repositorio nao muda a imagem.
+          image_name="ghcr.io/avilaops/tms"
           docker tag "tms-ci:$GITHUB_SHA" "$image_name:sha-$GITHUB_SHA"
           docker push "$image_name:sha-$GITHUB_SHA"
           # O digest vem do registro publicado, sem depender da ordem dos nomes locais.
