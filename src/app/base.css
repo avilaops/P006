@@ -1,0 +1,56 @@
+/* P006 • Reset pequeno compartilhado; estilos dos painéis ficam nas suas rotas. */
+@layer theme, base, components, utilities;
+
+@layer base {
+  *, ::before, ::after {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+
+  html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: var(--font-sans), Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    background: #f9fafb;
+    color: #111827;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
+  ol, ul { padding: 0; list-style: none; }
+  a { color: inherit; text-decoration: inherit; }
+  b, strong { font-weight: bolder; }
+  small { font-size: 80%; }
+
+  button, input, select, textarea {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background: transparent;
+    opacity: 1;
+  }
+
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+  button, input:where([type="button"], [type="reset"], [type="submit"]) { appearance: button; }
+  textarea { resize: vertical; }
+  table { border-collapse: collapse; border-color: inherit; text-indent: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  [hidden]:not([hidden="until-found"]) { display: none !important; }
+}

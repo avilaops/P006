@@ -1,4 +1,4 @@
-.tms-public{--site-ink:#12233b;--site-muted:#617086;--site-blue:#155dfc;--site-line:#e4eaf2;background:#fff;color:var(--site-ink);font-family:var(--font-inter),Arial,sans-serif;line-height:1.65;overflow-x:clip}
+.tms-public{--site-ink:#12233b;--site-muted:#53657d;--site-blue:#155dfc;--site-line:#e4eaf2;background:#fff;color:var(--site-ink);font-family:var(--font-inter),Arial,sans-serif;line-height:1.65;overflow-x:clip}
 .tms-public *{box-sizing:border-box}.tms-public a{text-decoration:none}.tms-public button,.tms-public a,.tms-public summary{ -webkit-tap-highlight-color:transparent}.tms-public :focus-visible{outline:3px solid #ffb700;outline-offset:5px}.public-container{width:min(1180px,calc(100% - 64px));margin-inline:auto}.public-skip{position:fixed;left:20px;top:-100px;background:#12233b;color:#fff;padding:10px 16px;z-index:100}.public-skip:focus{top:12px}
 .public-header{border-bottom:1px solid var(--site-line);background:rgba(255,255,255,.96)}.public-header-inner{height:96px;display:flex;align-items:center;justify-content:space-between;gap:24px}.public-brand{display:flex;align-items:center;gap:11px;color:var(--site-ink);line-height:1.1}.public-brand strong{display:block;font-size:25px;font-weight:800;letter-spacing:-1px}.public-brand small{display:block;font-size:9px;letter-spacing:2.2px;margin-top:5px;font-weight:600}.public-nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:500}.public-nav>a{color:var(--site-ink)}.public-nav>a:hover{color:var(--site-blue)}.public-client-link{display:flex;align-items:center;gap:9px;border:1px solid #d7dfea;padding:10px 17px;border-radius:8px;white-space:nowrap}.public-client-link:hover{border-color:var(--site-blue)}
 .public-eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--site-blue);display:inline-flex;align-items:center;gap:9px}.public-dot{width:6px;height:6px;background:var(--site-blue);border-radius:50%}.public-hero{display:grid;grid-template-columns:1fr 1fr;gap:58px;padding-block:94px 110px;align-items:center}.public-hero h1{font-family:var(--font-outfit),Arial,sans-serif;font-size:clamp(48px,5.5vw,76px);font-weight:600;letter-spacing:-3px;line-height:1.04;margin:24px 0}.public-hero h1>span{color:var(--site-blue)}.public-hero-copy>p{max-width:430px;color:var(--site-muted);font-size:16px;line-height:1.9;margin-bottom:29px}.public-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.public-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:13px;font-weight:600;border-radius:8px;padding:15px 21px;transition:background .2s,transform .2s}.public-button:hover{transform:translateY(-2px)}.public-button-primary{color:#fff;background:var(--site-blue);box-shadow:0 7px 18px #155dfc18}.public-button-primary:hover{background:#104dd5}.public-text-link{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--site-ink)}.public-text-link:hover{color:var(--site-blue)}.public-hero-note{display:flex;align-items:center;gap:9px;font-size:11px;color:#7b899c;margin-top:28px}.public-hero-note svg{color:#6d86a6;flex-shrink:0}
@@ -15,3 +15,37 @@
 @media(max-width:350px){.public-container{width:calc(100% - 32px)}.public-nav{gap:12px;font-size:11px}.public-client-link{padding:8px}.public-hero h1{font-size:55px}.public-feature-grid{grid-template-columns:1fr}.public-post-grid{grid-template-columns:1fr}.public-post-art{height:170px}.public-proof-strip .public-container>div{gap:8px;font-size:7px}.public-shipment{gap:7px}.public-shipment strong{font-size:9px}.public-float-card{padding:13px 15px}.public-float-card strong{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.tms-public *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 .public-prose{max-width:760px;font-size:16px;color:#485c76;line-height:1.9;overflow-wrap:anywhere}.public-prose h2{font-family:var(--font-outfit),Arial,sans-serif;font-size:28px;line-height:1.25;font-weight:550;color:#142c48;margin:35px 0 16px}.public-prose p{margin:17px 0}.public-prose ul,.public-prose ol{padding-left:24px;list-style:revert}.public-prose li{margin:9px 0}.public-prose a{color:#1761d1;text-decoration:underline;text-underline-offset:3px}.public-prose strong{font-weight:650;color:#223b57}.public-prose aside{padding:20px;border-left:3px solid #bbd3ff;background:#f4f8ff;font-size:13px;margin-top:35px}.public-editorial-note{font-size:12px;color:#6b7e95;margin:30px 0;line-height:1.8}.public-related{margin-top:70px;padding-top:30px;border-top:1px solid #e2e9f2}.public-related>h2{font-size:27px;margin-bottom:25px}.public-cookie-settings{display:block;padding:12px 20px;margin:0 auto;color:#526b88;background:#fff;border:0;font-size:11px;text-decoration:underline;cursor:pointer}.public-cookie-panel{position:fixed;bottom:18px;left:18px;max-width:510px;width:calc(100% - 36px);background:#fff;box-shadow:0 8px 45px #142c482b;border:1px solid #d7e3f3;border-radius:12px;padding:22px;z-index:100;color:#223b57}.public-cookie-panel>strong{font-size:16px}.public-cookie-panel p{font-size:12px;line-height:1.8;margin:10px 0 16px}.public-cookie-panel a{text-decoration:underline}.public-cookie-panel>div{display:flex;gap:10px;flex-wrap:wrap}.public-cookie-panel button{border:1px solid #b1c5de;background:#f5f8fc;color:#173654;border-radius:6px;padding:11px 14px;font-size:12px;cursor:pointer;font-weight:600;flex:1}.public-cookie-panel button:hover{background:#e8f0fd}.public-cookie-panel>small{display:block;margin-top:12px;font-size:11px}
+
+/* P006 • Contraste AA também nas legendas pequenas e nos fundos claros. */
+.public-hero-note,
+.public-operation-top small,
+.public-route-labels,
+.public-shipment small,
+.public-operation-bottom,
+.public-illustration-note,
+.public-proof-strip .public-container>span,
+.public-post-meta,
+.public-footer-brand>span,
+.public-footer-grid p,
+.public-footer-grid>div>a:not(.public-footer-brand),
+.public-footer-bottom,
+.public-footer-bottom a,
+.public-back,
+.public-article-aside a,
+.public-article-byline,
+.public-editorial-note {
+  color: var(--site-muted);
+}
+
+.public-post-art>small {
+  color: #526889;
+}
+
+.public-final-cta .public-eyebrow,
+.public-final-cta p {
+  color: #fff;
+}
+
+.public-footer-grid>div>a:not(.public-footer-brand):hover {
+  color: var(--site-blue);
+}
