@@ -45,3 +45,7 @@
 .public-final-cta p {
   color: #fff;
 }
+
+.public-footer-grid>div>a:not(.public-footer-brand):hover {
+  color: var(--site-blue);
+}

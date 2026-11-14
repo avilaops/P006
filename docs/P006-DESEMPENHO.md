@@ -16,6 +16,8 @@ Textos secundários, legendas, metadados de artigos e rodapé utilizam uma cor c
 
 O axe-core da versão candidata retornou zero violações WCAG A/AA na landing em celular e desktop. Cinquenta e sete testes selecionados passaram, assim como tipos e lint. O navegador confirmou utilitários de cor, espaçamento e layout em oito entradas operacionais, incluindo as áreas de administração, motorista e cliente. A compilação e a suíte integral são verificadas no CI; medidas de desenvolvimento não são apresentadas como resultado de produção.
 
+A revisão independente não encontrou problemas críticos ou importantes. O ajuste visual indicado no hover do rodapé foi incorporado, mantendo a indicação azul quando o ponteiro passa pelo link.
+
 ## Avaliação das outras sugestões
 
 - AMP Optimizer trabalha com documentos AMP. O P006 usa o App Router do Next.js 16, que removeu o suporte integrado a AMP. As otimizações foram aplicadas ao CSS da aplicação existente.
