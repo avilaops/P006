@@ -271,6 +271,7 @@ jobs:
       github.event_name != 'pull_request' && github.event_name != 'pull_request_target'
       && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       && vars.DEPLOY_ENABLED == 'true'
+      && vars.DEPLOY_TARGET != 'applications'
     runs-on: ubuntu-latest
     timeout-minutes: 1
     environment: production
@@ -291,3 +292,24 @@ jobs:
           RENDER_SERVICE_ID: srv-dbrvu9ifngtc73bb5q10
           RENDER_OWNER_ID: tea-dbrkuj9srm7s73ectr70
         run: node .github/scripts/deploy-render.mjs
+
+  deploy-ssh:
+    name: deploy applications
+    needs: image
+    if: >-
+      github.event_name != 'pull_request' && github.event_name != 'pull_request_target'
+      && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      && vars.DEPLOY_ENABLED == 'true'
+      && vars.DEPLOY_TARGET == 'applications'
+    permissions:
+      contents: read
+      packages: read
+    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5de9dd168d6db14764d9ca9a9338f72929652eb5
+    with:
+      application: tms.avilaops.com
+      image: ${{ needs.image.outputs.image }}
+    secrets:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
