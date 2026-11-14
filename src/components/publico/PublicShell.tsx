@@ -22,7 +22,7 @@ export async function PublicShell({ children }: { children: ReactNode }) {
         </Link>
         <nav className="public-nav" aria-label="Navegação principal">
           <Link href="/sobre">Sobre</Link><Link href="/blog">Blog</Link>
-          <Link className="public-client-link" href="/login" data-public-event="login_click">Já sou cliente <ArrowUpRight size={15} aria-hidden="true" /></Link>
+          <Link className="public-client-link" href="/login" prefetch={false} data-public-event="login_click">Já sou cliente <ArrowUpRight size={15} aria-hidden="true" /></Link>
         </nav>
       </div>
     </header>
@@ -30,8 +30,8 @@ export async function PublicShell({ children }: { children: ReactNode }) {
     <footer className="public-footer">
       <div className="public-container public-footer-grid">
         <div><Link className="public-footer-brand" href="/">TMS <span>• Ávila Ops</span></Link><p>Logística conectada.<br />Da primeira coleta à última entrega.</p></div>
-        <div><strong>Explore</strong><Link href="/sobre">Sobre o TMS</Link><Link href="/blog">Universo Fiscal</Link><Link href="/rastreio">Acompanhar uma entrega</Link></div>
-        <div><strong>Vamos conversar</strong><a href={CONTACT_URL} data-public-event="contact_click">Fale com a Ávila Ops <ArrowUpRight size={14} aria-hidden="true" /></a><Link href="/login" data-public-event="login_click">Acessar minha conta</Link><a href="https://avilaops.com/">Conheça a Ávila Ops</a></div>
+        <div><strong>Explore</strong><Link href="/sobre">Sobre o TMS</Link><Link href="/blog">Universo Fiscal</Link><Link href="/rastreio" prefetch={false}>Acompanhar uma entrega</Link></div>
+        <div><strong>Vamos conversar</strong><a href={CONTACT_URL} data-public-event="contact_click">Fale com a Ávila Ops <ArrowUpRight size={14} aria-hidden="true" /></a><Link href="/login" prefetch={false} data-public-event="login_click">Acessar minha conta</Link><a href="https://avilaops.com/">Conheça a Ávila Ops</a></div>
       </div>
       <div className="public-container public-footer-bottom"><span>© {new Date().getFullYear()} Ávila Ops</span><div><Link href="/privacidade">Privacidade</Link><Link href="/cookies">Cookies e preferências</Link></div></div>
     </footer>

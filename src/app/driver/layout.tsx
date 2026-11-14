@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import '../globals.css';
 import DriverShell from "@/components/driver/DriverShell";
 
 // Server component só para poder declarar o manifest próprio do app do

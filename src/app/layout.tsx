@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit, Geist } from "next/font/google";
-import "./globals.css";
+import "./base.css";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { cn } from "@/lib/utils";
 
