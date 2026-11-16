@@ -50,6 +50,10 @@ model Tenant {
   // Símbolo da empresa: data URL de imagem pequena. Nulo = símbolo padrão. Ver src/lib/empresa.ts.
   logo             String?  @db.Text
   active           Boolean  @default(true)
+  // Cadastro inicial autorizado: identidade confirmada e exclusão comercial da conta.
+  // Campos exclusivos do caminho de sistema; o formulário nunca os escolhe.
+  selfSignupEmail  String?  @unique
+  selfSignupExempt Boolean  @default(false)
   site             CarrierSite?
   // Encargos sugeridos na baixa de um título vencido: multa (% do valor, uma
   // vez) e juros (% ao mês, proporcional aos dias de atraso). Ver src/lib/cobranca.ts.

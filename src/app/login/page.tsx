@@ -1,9 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { Truck, LogIn, Loader2 } from "lucide-react";
 import { sair } from "@/lib/sair";
+import { callbackLocal } from "@/lib/cadastro-links";
+
+const queryAtual = () => window.location.search;
+const queryServidor = () => "";
+const acompanharQuery = (onChange: () => void) => {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+};
 
 /**
  * O TMS não tem formulário de senha: quem autentica é o login único da Ávila
@@ -15,11 +24,15 @@ import { sair } from "@/lib/sair";
  * voltou do auth com erro (`?error=`), para não ficar indo e voltando sem fim.
  */
 export default function LoginPage() {
-  const [estado, setEstado] = useState<"indo" | "saiu" | "erro">("indo");
+  const queryString = useSyncExternalStore(acompanharQuery, queryAtual, queryServidor);
+  const query = new URLSearchParams(queryString);
+  const [abrindo, setAbrindo] = useState(false);
+  const estado = abrindo ? "indo" : query.get("saiu") === "1" ? "saiu" : query.get("error") ? "erro" : "indo";
 
   const entrar = () => {
-    setEstado("indo");
-    void signIn("avilaops", { callbackUrl: "/" });
+    setAbrindo(true);
+    const destino = callbackLocal(new URLSearchParams(window.location.search).get("callbackUrl"));
+    void signIn("avilaops", { callbackUrl: destino });
   };
 
   const disparou = useRef(false);
@@ -28,10 +41,8 @@ export default function LoginPage() {
     disparou.current = true;
 
     const query = new URLSearchParams(window.location.search);
-    if (query.get("saiu") === "1") return setEstado("saiu");
-    if (query.get("error")) return setEstado("erro");
-
-    entrar();
+    if (query.get("saiu") === "1" || query.get("error")) return;
+    void signIn("avilaops", { callbackUrl: callbackLocal(query.get("callbackUrl")) });
   }, []);
 
   return (
@@ -87,7 +98,8 @@ export default function LoginPage() {
             </button>
           )}
         </div>
-        <p className="text-center text-sm text-gray-500 mt-8">© {new Date().getFullYear()} Avila Ops</p>
+        <p className="text-center text-sm text-gray-500 mt-6"><Link href="/criar-conta" className="text-blue-600 hover:underline">Criar conta</Link> • <Link href="/" className="hover:underline">Conhecer o TMS</Link></p>
+        <p className="text-center text-sm text-gray-500 mt-4">© {new Date().getFullYear()} Avila Ops</p>
       </div>
     </div>
   );
