@@ -386,6 +386,8 @@ const FORA_DA_MATRIZ = [
   "/api/driver/perfil",
   "/api/driver/remuneracao",
   "/api/empresas",
+  // Pré-tenant: requireConta e liberação exata de cadastro isento no servidor.
+  "/api/cadastro",
   "/api/health",
   // Contrato servidor-a-servidor do Lojas: autenticado por chave SHA-256 do tenant.
   "/api/integracoes/lojas/v1/empresas/[empresa]/cotacoes",

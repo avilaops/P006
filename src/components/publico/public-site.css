@@ -49,3 +49,5 @@
 .public-footer-grid>div>a:not(.public-footer-brand):hover {
   color: var(--site-blue);
 }
+
+@media(max-width:600px){.public-nav .public-nav-info{display:none}}

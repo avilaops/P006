@@ -1,5 +1,15 @@
 [
   {
+    "route": "/cadastro",
+    "source": "src/app/cadastro/page.tsx",
+    "mdx": "docs/paginas/cadastro/pagina.mdx"
+  },
+  {
+    "route": "/criar-conta",
+    "source": "src/app/criar-conta/page.tsx",
+    "mdx": "docs/paginas/criar-conta/pagina.mdx"
+  },
+  {
     "route": "/blog/[slug]",
     "source": "src/app/blog/[slug]/page.tsx",
     "mdx": "src/content/public/o-que-e-cte.mdx"

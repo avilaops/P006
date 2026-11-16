@@ -117,7 +117,7 @@ export default function EscolherEmpresa() {
               Gerenciar empresas
             </Link>
           ) : (
-            <span />
+            <Link href="/cadastro" className="text-blue-600 hover:underline">Cadastrar transportadora</Link>
           )}
           <button type="button" onClick={() => void sair()} className="text-gray-600 dark:text-gray-300 hover:underline">
             Sair

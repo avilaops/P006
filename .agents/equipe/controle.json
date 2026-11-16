@@ -376,9 +376,34 @@
           "note": "Critérios locais aprovados: 54 testes, tipos, lint e navegador desktop/mobile. Jornada de cadastro a logout solicitada durante o trabalho foi analisada sem mudar a política de acesso; dados necessários pendentes do usuário. Esta tarefa continua limitada ao Faturamento."
         }
       ]
+    },
+    {
+      "id": "T-0015",
+      "title": "AVL-412 • Cadastro inicial da transportadora isenta",
+      "objective": "Disponibilizar interfaces de identidade, cadastro da transportadora, primeiro acesso e saída, com criação restrita à conta isenta autorizada no servidor.",
+      "assignee": "agent-code",
+      "priority": "high",
+      "status": "em_revisao",
+      "acceptanceCriteria": [
+        "Cadastro pelo Auth com retorno estável para o formulário do TMS",
+        "E-mail e administrador vêm da sessão; origem, JSON e liberação exata conferidos",
+        "Criação transacional e idempotente por identidade, sem reativar tenant ou conceder ADMIN global",
+        "Retomada da entrada sem duplicação e saída pelo fluxo central existente",
+        "Tipos, lint, regressões e navegador desktop/mobile verificados; publicação comprovada separadamente"
+      ],
+      "evidence": "Testes focados de cadastro/login e regressões públicas aprovados, typecheck e lint do código de cadastro aprovados. Chromium real com componente/API de fixture em 1440/390 px, sem overflow ou erro, payload restrito e handlers de entrada/saída conferidos. Banco real, CI completa, SQL/RLS e publicação ainda pendentes. Capturas em artifacts/cadastro-transportadora-1440.png e cadastro-transportadora-390.png. Revisão pelo próprio agente, sem agentes adicionais.",
+      "blocker": "",
+      "history": [{ "at": "2026-11-16", "status": "em_revisao", "note": "Continuação autorizada pelo usuário. Implementação da conta isenta separada da futura automação de cobrança. Não comprovado cadastro/confirmacão real de identidade, que depende da interface e do usuário." }]
     }
   ],
   "decisions": [
+    {
+      "id": "D-0005",
+      "decision": "Executar o cadastro inicial da conta isenta sem automatizar a cobrança comercial pendente.",
+      "reason": "O usuário autorizou a conta desta jornada fora da cobrança e pediu disponibilizar as interfaces. A liberação fica exata no servidor, sem conceder empresas gratuitas a outras identidades.",
+      "status": "active",
+      "evidence": "Orientações de 13/11 e continuação de 16/11/2026; docs/superpowers/specs/2026-11-16-cadastro-inicial-design.md. Mello, demo e a nova conta permanecem fora da contagem."
+    },
     {
       "id": "D-0001",
       "decision": "Corrigir a integridade da PR20 antes de iniciar o próximo módulo.",

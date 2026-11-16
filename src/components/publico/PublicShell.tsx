@@ -21,7 +21,7 @@ export async function PublicShell({ children }: { children: ReactNode }) {
           <span><strong>TMS</strong><small>ÁVILA OPS</small></span>
         </Link>
         <nav className="public-nav" aria-label="Navegação principal">
-          <Link href="/sobre">Sobre</Link><Link href="/blog">Blog</Link>
+          <Link className="public-nav-info" href="/sobre">Sobre</Link><Link className="public-nav-info" href="/blog">Blog</Link><Link href="/criar-conta" prefetch={false}>Criar conta</Link>
           <Link className="public-client-link" href="/login" prefetch={false} data-public-event="login_click">Já sou cliente <ArrowUpRight size={15} aria-hidden="true" /></Link>
         </nav>
       </div>
