@@ -32,7 +32,7 @@
 - [x] Criar `src/lib/cadastro-inicial.ts`, `src/app/api/cadastro/route.ts` e campos Tenant.
 - [x] SQL `prisma/sql/045-cadastro-inicial.sql` aditivo e idempotente.
 - [x] Adicionar exceção pré-tenant explícita em `tests/perfis.test.ts`.
-- [ ] Validar autorização, origem, corpo, rollback, repetição e concorrência.
+- [x] Validar autorização, origem, corpo, rollback, repetição e concorrência.
 
 ## Task 2 • Jornada de interface
 
@@ -45,7 +45,12 @@
 ## Task 3 • Entrega
 
 - [x] Tipos, lint e regressões focadas; revisão pelo próprio agente.
-- [ ] Commit seletivo e PR na `avilaops/P006`; CI integral e imagem.
-- [ ] Aplicar/reaplicar SQL e RLS antes do código, configurar liberação autorizada.
+- [x] Commit seletivo e PR na `avilaops/P006`; CI integral e imagem.
+- [x] Aplicar/reaplicar SQL e RLS antes do código, configurar liberação autorizada.
 - [ ] Merge/publicação conforme autorização vigente, saúde e limpeza da branch incorporada.
 - [ ] Registrar prova e limites no Linear, distinguindo UI de confirmação real pelo usuário.
+
+Progresso • PR #43 integrada em 3141050 com CI aprovada. Run de publicação
+43875321790 cancelado para corrigir contraste do CTA antes de disponibilizar
+as páginas. Correção verificada em Chromium; CI/publicação final continuam
+registradas separadamente na AVL-412. Nenhuma identidade foi criada por banco.

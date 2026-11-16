@@ -38,8 +38,21 @@ identidade deve ser específico do TMS, sem criar identidade pelo banco nem
 abrir outros apps. O usuário confirma o e-mail/escolhe a senha pela interface
 e informa os dados empresariais. Nenhum dado empresarial foi inventado.
 
-CI integral, imagem, migração, publicação, saúde e limpeza serão registrados
-na AVL-412 após verificação. Esta evidência local não os presume aprovados.
+CI da PR #43 • run 43874192254 • aprovada na primeira tentativa, com 66 jobs
+success e dois deploys pulados. Inclui suíte PostgreSQL, tipos, build e imagem.
+SQL 045 aplicado/reaplicado em produção, seguido de RLS. Demo e Mello
+identificadas por ID/slug e marcadas isentas. Ambiente preparado para a conta
+autorizada e permissão específica de TMS concedida no Auth, mantendo
+`clientes_liberados`. Consulta de existência confirmou que a identidade
+ainda não foi criada. Nenhuma senha, identidade ou transportadora foi criada
+diretamente no banco.
+
+A main 3141050 foi integrada, mas seu run 43875321790 foi cancelado antes
+da publicação após encontrar baixo contraste no CTA público. Reproduzido no
+Chromium com a folha real: texto rgb(23,97,209) sobre fundo rgb(21,93,252).
+A correção separa as ações da seção de texto; o mesmo navegador comprova
+texto branco rgb(255,255,255), sem alterar estilos globais. Publicação final,
+saúde e limpeza seguem acompanhadas na AVL-412, sem presumir sua conclusão.
 
 ## Preservação do checkout
 
