@@ -64,11 +64,13 @@ export function publicWebhookUrl(tenantId: string, token: string) {
 
 export function webhookConfiguration(url: string) {
   return {
-    enabled: true,
-    url,
-    webhookByEvents: false,
-    webhookBase64: false,
-    events: ["MESSAGES_UPSERT", "CONNECTION_UPDATE"],
+    webhook: {
+      enabled: true,
+      url,
+      byEvents: false,
+      base64: false,
+      events: ["MESSAGES_UPSERT", "CONNECTION_UPDATE"],
+    },
   };
 }
 
