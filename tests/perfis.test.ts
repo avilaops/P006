@@ -180,6 +180,11 @@ const ROTAS: Record<string, Capacidade> = {
   "GET /api/dashboard/crm": "crm",
   "POST /api/dashboard/crm": "crm",
   "GET /api/dashboard/crm/equipe": "crm",
+  "GET /api/dashboard/whatsapp/conversations": "crm",
+  "GET /api/dashboard/whatsapp/conversations/[id]": "crm",
+  "GET /api/dashboard/whatsapp/media/[id]": "crm",
+  "PATCH /api/dashboard/whatsapp/conversations/[id]": "crm",
+  "POST /api/dashboard/whatsapp/conversations/[id]/messages": "crm",
   "GET /api/dashboard": "painel",
   "POST /api/deposito/coletas/[id]/concluir": "deposito",
   "POST /api/deposito/coletas/[id]/posicao": "deposito",
@@ -208,6 +213,9 @@ const ROTAS: Record<string, Capacidade> = {
   "GET /api/empresa/webhook": "empresa",
   "PUT /api/empresa/webhook": "empresa",
   "POST /api/empresa/webhook/teste": "empresa",
+  "GET /api/empresa/whatsapp": "crm",
+  "POST /api/empresa/whatsapp": "empresa",
+  "POST /api/empresa/whatsapp/historico": "empresa",
   "PATCH /api/equipe/adiantamentos/[id]": "equipeValores",
   "GET /api/equipe/adiantamentos": "equipeValoresVer",
   "POST /api/equipe/adiantamentos": "equipeValores",
@@ -399,6 +407,7 @@ const FORA_DA_MATRIZ = [
   "/api/integracoes/lojas/v1/empresas/[empresa]/ordens/[externalId]/cancelamento",
   "/api/integracoes/lojas/v1/empresas/[empresa]/reversas",
   "/api/integracoes/lojas/v1/empresas/[empresa]/reversas/[externalId]/inspecao",
+  "/api/integracoes/whatsapp/evolution/[tenantId]/[token]",
   "/api/leads",
   "/api/notificacoes",
   "/api/notificacoes/aparelho",
@@ -584,6 +593,7 @@ describe("menu do painel por perfil", () => {
     "/",
     "/clientes",
     "/crm",
+    "/crm/whatsapp",
     "/tabelas-frete",
     "/coletas",
     "/deposito",
@@ -598,13 +608,14 @@ describe("menu do painel por perfil", () => {
     "/frota",
   ];
 
-  it("ADMIN e OPERATION veem o mesmo menu de antes", () => {
+  it("ADMIN e OPERATION veem a caixa WhatsApp junto ao CRM", () => {
     expect(links("OPERATION")).toEqual(DA_OPERACAO_NO_MENU);
     expect(secoesDoMenu("OPERATION").map((secao) => secao.titulo)).toEqual([null, "Comercial", "Operação", "Frota"]);
     expect(links("ADMIN")).toEqual([
       "/",
       "/clientes",
       "/crm",
+      "/crm/whatsapp",
       "/tabelas-frete",
       "/coletas",
       "/deposito",
@@ -634,6 +645,7 @@ describe("menu do painel por perfil", () => {
       "/",
       "/clientes",
       "/crm",
+      "/crm/whatsapp",
       "/tabelas-frete",
       "/coletas",
       "/deposito",
@@ -671,7 +683,7 @@ describe("menu do painel por perfil", () => {
       "/frota",
       "/relatorios",
     ]);
-    expect(links("COMMERCIAL")).toEqual(["/", "/clientes", "/crm", "/tabelas-frete", "/coletas", "/ocorrencias", '/site']);
+    expect(links("COMMERCIAL")).toEqual(["/", "/clientes", "/crm", "/crm/whatsapp", "/tabelas-frete", "/coletas", "/ocorrencias", '/site']);
     expect(links("EXPEDITION")).toEqual(["/", "/coletas", "/manifestos", "/comprovantes", "/ocorrencias", "/fiscal", "/motoristas", "/veiculos", "/equipe", "/frota"]);
     expect(links("WAREHOUSE")).toEqual(["/", "/coletas", "/deposito", "/ocorrencias"]);
   });
