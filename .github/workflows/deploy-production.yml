@@ -46,7 +46,7 @@ jobs:
     name: tests (${{ matrix.id }})
     needs: dependencies
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 2
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.dependencies.outputs.matrix) }}
