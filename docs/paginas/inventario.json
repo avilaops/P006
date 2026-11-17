@@ -65,6 +65,11 @@
     "mdx": "docs/paginas/dashboard/crm/pagina.mdx"
   },
   {
+    "route": "/dashboard/crm/whatsapp",
+    "source": "src/app/dashboard/crm/whatsapp/page.tsx",
+    "mdx": "docs/paginas/dashboard/crm/whatsapp/pagina.mdx"
+  },
+  {
     "route": "/dashboard/deposito/conferencia",
     "source": "src/app/dashboard/deposito/conferencia/page.tsx",
     "mdx": "docs/paginas/dashboard/deposito/conferencia/pagina.mdx"

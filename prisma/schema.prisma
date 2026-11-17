@@ -88,6 +88,9 @@ model Tenant {
   maintenances         Maintenance[]
   proofs               ProofOfDelivery[]
   quoteLeads           QuoteLead[]
+  whatsappConnection   WhatsAppConnection?
+  whatsappConversations WhatsAppConversation[]
+  whatsappMessages     WhatsAppMessage[]
   freightTables        FreightTable[]
   invoices             Invoice[]
   freightCities        FreightTableCity[]
@@ -1431,6 +1434,8 @@ model QuoteLead {
   // Quem da equipe cuida desta cotação. Nulo = ninguém assumiu ainda.
   assigneeId     String?
   assignee       User?       @relation("QuoteLeadAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  whatsappConversationId String?
+  whatsappConversation WhatsAppConversation? @relation(fields: [tenantId, whatsappConversationId], references: [tenantId, id], onDelete: Restrict)
   // Por que foi perdida (lista fechada em src/lib/crm.ts). Só com status LOST.
   lostReason     String?
   // Última vez que alguém mexeu nela ou falou com o cliente: troca de status,
@@ -1448,6 +1453,75 @@ model QuoteLead {
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([assigneeId])
+  @@index([tenantId, whatsappConversationId])
+}
+
+// ---------------------------------------------------------------------------
+// WhatsApp Evolution • histórico comercial por transportadora.
+// O texto e os metadados ficam no PostgreSQL; anexos binários ficam no R2.
+// ---------------------------------------------------------------------------
+model WhatsAppConnection {
+  tenantId         String   @id @default(dbgenerated("current_setting('app.tenant_id'::text)"))
+  instanceName     String   @unique
+  status           String   @default("DISCONNECTED")
+  phone            String?
+  webhookTokenHash String
+  connectedAt      DateTime?
+  historyPage      Int      @default(0)
+  historyImported  Int      @default(0)
+  historyComplete  Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  tenant           Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model WhatsAppConversation {
+  tenantId        String   @default(dbgenerated("current_setting('app.tenant_id'::text)"))
+  id              String   @id @default(uuid())
+  remoteJid       String
+  phone           String
+  contactName     String?
+  status          String   @default("OPEN")
+  unreadCount     Int      @default(0)
+  lastMessageAt   DateTime?
+  lastMessageText String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  messages        WhatsAppMessage[]
+  quoteLeads      QuoteLead[]
+
+  @@unique([tenantId, id])
+  @@unique([tenantId, remoteJid])
+  @@index([tenantId, status, lastMessageAt])
+  @@index([tenantId, phone])
+}
+
+model WhatsAppMessage {
+  tenantId       String   @default(dbgenerated("current_setting('app.tenant_id'::text)"))
+  id             String   @id @default(uuid())
+  conversationId String
+  externalId     String
+  direction      String
+  type           String   @default("text")
+  body           String?  @db.Text
+  status         String   @default("received")
+  mediaProvider  String?
+  mediaKey       String?
+  mediaMimeType  String?
+  mediaFileName  String?
+  mediaSize      Int?
+  mediaSha256    String?
+  sentAt         DateTime
+  metadata       Json     @default("{}")
+  createdAt      DateTime @default(now())
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  conversation   WhatsAppConversation @relation(fields: [tenantId, conversationId], references: [tenantId, id], onDelete: Cascade)
+
+  @@unique([tenantId, externalId])
+  @@index([tenantId, conversationId, sentAt])
 }
 
 // ---------------------------------------------------------------------------

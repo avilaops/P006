@@ -368,6 +368,7 @@ export const createLeadSchema = z
       weight: z.preprocess(numeroDoFormulario, z.number("Informe o peso em kg.").positive("O peso precisa ser maior que zero.").max(1000000, "Peso acima do limite.")),
       invoiceValue: z.preprocess(numeroDoFormulario, z.number("O valor da nota precisa ser um número maior ou igual a zero.").min(0, "O valor da nota precisa ser um número maior ou igual a zero.").max(MAX_ESTIMATED_VALUE, "Valor da nota acima do limite.")).optional(),
       assigneeId: z.preprocess(idOuNada, z.string(ASSIGNEE_MESSAGE).trim().min(1, ASSIGNEE_MESSAGE).max(64, ASSIGNEE_MESSAGE).nullish()),
+      whatsappConversationId: z.string().uuid().optional(),
     },
     INVALID_BODY,
   )
