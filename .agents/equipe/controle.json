@@ -394,6 +394,32 @@
       "evidence": "Implementação local concluída: 52 testes focados, tipos e lint aprovados; Chromium em 1440/390 px com componente real/API de fixture, payload restrito, entrada e comando de saída. CI da PR #43 run 43874192254 aprovada na primeira tentativa: 66 jobs success e dois deploys pulados, incluindo PostgreSQL, concorrência/RLS, tipos, build e imagem. SQL 045 aplicado/reaplicado e RLS renovado. Main inicial 3141050 teve publicação cancelada para corrigir contraste do CTA identificado na revisão; correção comprovada em Chromium com texto branco. Publicação final/saúde/limpeza acompanhadas separadamente na AVL-412, conforme o aceite desta tarefa. Capturas/evidência em artifacts/cadastro-inicial-verificacao.md. Revisão pelo próprio agente, sem revisão independente. Usuário confirma identidade e preenche empresa pela interface; nenhum cadastro real foi presumido.",
       "blocker": "",
       "history": [{ "at": "2026-11-16", "status": "em_revisao", "note": "Continuação autorizada pelo usuário. Implementação da conta isenta separada da futura automação de cobrança. Não comprovado cadastro/confirmacão real de identidade, que depende da interface e do usuário." }]
+    },
+    {
+      "id": "T-0016",
+      "title": "P006 • Caixa WhatsApp por transportadora com Evolution API e R2",
+      "objective": "Implementar atendimento WhatsApp multiempresa no TMS, importar histórico disponível, guardar anexos no R2 privado e vincular cotações revisadas à conversa.",
+      "assignee": "agent-code",
+      "priority": "high",
+      "status": "em-andamento",
+      "acceptanceCriteria": [
+        "Conexão Evolution deriva instância por tenant e protege webhook sem expor tokens",
+        "Mensagens novas e histórico importado são deduplicados e isolados por RLS",
+        "Anexos ficam no bucket R2 privado e são lidos por rota autenticada",
+        "Caixa permite responder, arquivar e abrir cotação manual vinculada à conversa",
+        "Esquema Prisma é válido; documentação lista variáveis e passos de ativação"
+      ],
+      "evidence": "Implementação local no worktree feat/tms-whatsapp-evolution. Em 17/11/2026, Prisma validate, typecheck, ESLint do escopo e git diff --check aprovados. Bucket privado tms-avilaops-com-media criado. Pelo SSH autorizado, EVOLUTION_API_URL/KEY do CRM e credenciais R2 do app foram gravadas no .env do TMS com modo 0600; API Evolution respondeu HTTP 200 e teste HeadBucket/PutObject/DeleteObject no bucket do TMS passou sem exibir segredos. Schema/RLS e nova imagem ainda não foram aplicados.",
+      "owner": "agent-code",
+      "acceptance": "Conexão Evolution deriva instância por tenant e protege webhook sem expor tokens\nMensagens novas e histórico importado são deduplicados e isolados por RLS\nAnexos ficam no bucket R2 privado e são lidos por rota autenticada\nCaixa permite responder, arquivar e abrir cotação manual vinculada à conversa\nEsquema Prisma é válido; documentação lista variáveis e passos de ativação",
+      "blocker": "Aguardando aprovação dos checks do pipeline e atualização aditiva do schema/RLS no banco tms_avilaops_com; depois publicar e validar a interface com a aplicação atualizada.",
+      "history": [
+        {
+          "at": "2026-11-17",
+          "status": "em-andamento",
+          "note": "Implementação local verificada. Acesso SSH autorizado configurou Evolution a partir do CRM e R2 a partir do app no .env root-only do TMS. API Evolution respondeu HTTP 200; acesso R2 ao bucket do TMS foi validado com gravação e remoção de objeto temporário. Falta pipeline, schema/RLS e publicação da nova imagem."
+        }
+      ]
     }
   ],
   "decisions": [

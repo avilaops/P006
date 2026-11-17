@@ -54,6 +54,10 @@ export async function POST(req: Request) {
 
     const lead = await transacao(async (tx) => {
       const assigneeId = data.assigneeId === undefined ? user.id : data.assigneeId;
+      if (data.whatsappConversationId) {
+        const conversa = await tx.whatsAppConversation.findUnique({ where: { id: data.whatsappConversationId }, select: { id: true } });
+        if (!conversa) throw new Refusal("Conversa do WhatsApp não encontrada.", 400);
+      }
       if (assigneeId) {
         // Usuário de outra empresa não aparece nesta: cai no mesmo 400.
         const responsavel = await tx.user.findFirst({ where: { id: assigneeId, ...DA_EQUIPE_COMERCIAL }, select: { id: true } });
@@ -79,6 +83,7 @@ export async function POST(req: Request) {
           estimatedValue: frete?.atendida ? frete.valor : null,
           channel: data.channel,
           assigneeId,
+          whatsappConversationId: data.whatsappConversationId,
         },
         { id: true, number: true },
       );

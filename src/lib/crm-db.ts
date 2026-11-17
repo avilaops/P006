@@ -22,6 +22,7 @@ export type NovaCotacao = {
   estimatedValue: number | null;
   channel: LeadChannel;
   assigneeId: string | null;
+  whatsappConversationId?: string;
 };
 
 /**
@@ -55,6 +56,7 @@ export async function criarCotacao<S extends Prisma.QuoteLeadSelect>(
       estimatedValue: dados.estimatedValue,
       channel: dados.channel,
       assigneeId: dados.assigneeId,
+      whatsappConversationId: dados.whatsappConversationId,
       status: "NEW",
     },
     select,

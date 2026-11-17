@@ -23,6 +23,7 @@ import {
   HardHat,
   Handshake,
   Globe,
+  MessageCircle,
 } from "lucide-react";
 import { pode, type Capacidade } from "@/lib/permissoes";
 
@@ -42,6 +43,7 @@ export const SECOES: SecaoDoMenu[] = [
     links: [
       { href: "/dashboard/clientes", icon: Users, label: "Clientes", pode: "clientesVer" },
       { href: "/dashboard/crm", icon: UserPlus, label: "Cotações", pode: "crm" },
+      { href: "/dashboard/crm/whatsapp", icon: MessageCircle, label: "WhatsApp", pode: "crm" },
       { href: "/dashboard/tabelas-frete", icon: Calculator, label: "Tabelas de frete", pode: "tabelasFreteVer" },
     ],
   },

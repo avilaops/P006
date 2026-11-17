@@ -15,6 +15,7 @@
     "db:push": "prisma db push && tsx prisma/aplicar-lojas-logistica.ts && tsx prisma/aplicar-rls.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1170.0",
     "@base-ui/react": "^1.6.0",
     "@langfuse/otel": "6.0.2",
     "@langfuse/tracing": "6.0.2",
