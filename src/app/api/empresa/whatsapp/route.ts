@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/staff";
 import prisma from "@/lib/prisma";
 import { empresaAtual } from "@/lib/prisma";
-import { createWebhookToken, evolutionRequest, hashWebhookToken, instanceForTenant, publicWebhookUrl, EvolutionError } from "@/lib/evolution-whatsapp";
+import { createWebhookToken, evolutionRequest, hashWebhookToken, instanceForTenant, publicWebhookUrl, webhookConfiguration, EvolutionError } from "@/lib/evolution-whatsapp";
 
 export const dynamic = "force-dynamic";
 
@@ -42,13 +42,7 @@ export async function POST() {
       if (!existing && !(cause instanceof EvolutionError && cause.status === 409)) throw cause;
     }
 
-    await evolutionRequest(`/webhook/set/${encodeURIComponent(instanceName)}`, {
-      enabled: true,
-      url: callback,
-      webhook_by_events: false,
-      webhook_base64: false,
-      events: ["MESSAGES_UPSERT", "CONNECTION_UPDATE"],
-    });
+    await evolutionRequest(`/webhook/set/${encodeURIComponent(instanceName)}`, webhookConfiguration(callback));
     await prisma.whatsAppConnection.upsert({
       where: { tenantId },
       create: { tenantId, instanceName, status: "CONNECTING", webhookTokenHash: hashWebhookToken(token) },

@@ -62,6 +62,16 @@ export function publicWebhookUrl(tenantId: string, token: string) {
   return new URL(`/api/integracoes/whatsapp/evolution/${tenantId}/${token}`, origin).toString();
 }
 
+export function webhookConfiguration(url: string) {
+  return {
+    enabled: true,
+    url,
+    webhookByEvents: false,
+    webhookBase64: false,
+    events: ["MESSAGES_UPSERT", "CONNECTION_UPDATE"],
+  };
+}
+
 export async function evolutionRequest<T extends Json | Json[] = Json>(path: string, body?: unknown): Promise<T> {
   const { baseUrl, apiKey } = configuration();
   try {
