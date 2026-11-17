@@ -66,6 +66,7 @@
 - [x] Responder com texto pela Evolution e persistir a confirmação com o ID externo.
 - [x] Permitir arquivar/restaurar conversa.
 - [x] Ligar a ação “Criar cotação” ao formulário comercial e persistir o vínculo só após validação completa.
+- [x] Registrar as novas rotas na matriz de permissões e incluir a página interna no inventário MDX sem exportá-la ao catálogo público.
 
 ### 5 • Configurações, documentação e atualização do registro da equipe
 
@@ -78,6 +79,7 @@
 ## Verificação local
 
 - [x] `prisma validate`, `typecheck`, ESLint do escopo e `git diff --check` aprovados.
+- [ ] CI da PR #45: a primeira execução encontrou inventário de rotas/perfis e página MDX desatualizados; correções enviadas na cabeça `fb233d0` e a nova execução ainda precisa ser confirmada.
 - [ ] Aplicar `npm run db:push` no ambiente do TMS para criar as tabelas e reaplicar as políticas RLS.
-- [x] Não criar nem executar testes nesta etapa.
-- [x] Não conectar número real, enviar mensagem real ou ativar webhook de produção sem as credenciais do serviço.
+- [ ] Publicar a aplicação e validar pareamento, histórico e atendimento com o número real.
+- [x] Guardar credenciais somente no `.env` root-only do TMS e nunca no repositório.

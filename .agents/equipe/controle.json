@@ -409,15 +409,15 @@
         "Caixa permite responder, arquivar e abrir cotação manual vinculada à conversa",
         "Esquema Prisma é válido; documentação lista variáveis e passos de ativação"
       ],
-      "evidence": "Implementação local no worktree feat/tms-whatsapp-evolution. Em 17/11/2026, Prisma validate, typecheck, ESLint do escopo e git diff --check aprovados. Bucket privado tms-avilaops-com-media criado. Pelo SSH autorizado, EVOLUTION_API_URL/KEY do CRM e credenciais R2 do app foram gravadas no .env do TMS com modo 0600; API Evolution respondeu HTTP 200 e teste HeadBucket/PutObject/DeleteObject no bucket do TMS passou sem exibir segredos. Schema/RLS e nova imagem ainda não foram aplicados.",
+      "evidence": "Implementação local em feat/tms-whatsapp-evolution, PR #45. Prisma validate, typecheck, ESLint do escopo e git diff --check aprovados. Bucket privado tms-avilaops-com-media criado. Pelo SSH autorizado, EVOLUTION_API_URL/KEY do CRM e credenciais R2 do app foram gravadas no .env do TMS com modo 0600; Evolution respondeu HTTP 200 e teste HeadBucket/PutObject/DeleteObject no bucket passou sem exibir segredos. Primeiro CI revelou inventário de permissões e catálogo MDX desatualizados; ambos foram atualizados e nova execução aguarda resultado. Schema/RLS e imagem ainda não foram aplicados.",
       "owner": "agent-code",
       "acceptance": "Conexão Evolution deriva instância por tenant e protege webhook sem expor tokens\nMensagens novas e histórico importado são deduplicados e isolados por RLS\nAnexos ficam no bucket R2 privado e são lidos por rota autenticada\nCaixa permite responder, arquivar e abrir cotação manual vinculada à conversa\nEsquema Prisma é válido; documentação lista variáveis e passos de ativação",
-      "blocker": "Aguardando aprovação dos checks do pipeline e atualização aditiva do schema/RLS no banco tms_avilaops_com; depois publicar e validar a interface com a aplicação atualizada.",
+      "blocker": "Aguardando checks do pipeline da PR #45; depois aplicar schema/RLS no banco tms_avilaops_com, publicar e validar a interface atualizada.",
       "history": [
         {
           "at": "2026-11-17",
           "status": "em-andamento",
-          "note": "Implementação local verificada. Acesso SSH autorizado configurou Evolution a partir do CRM e R2 a partir do app no .env root-only do TMS. API Evolution respondeu HTTP 200; acesso R2 ao bucket do TMS foi validado com gravação e remoção de objeto temporário. Falta pipeline, schema/RLS e publicação da nova imagem."
+          "note": "Acesso SSH configurou Evolution e R2 no .env root-only do TMS; Evolution HTTP 200 e gravação/remoção temporária R2 passaram. PR #45 aberta. CI detectou contratos de permissões e inventário MDX desatualizados; correções enviadas para nova execução. Falta CI, schema/RLS e publicação."
         }
       ]
     }
