@@ -69,6 +69,12 @@ export async function POST(
           para: proof.collection.manifest?.driver.userId,
           autor: user.id,
         });
+      } else {
+        // O cliente recebe o comprovante somente depois da aprovação da equipe.
+        await tx.outboxEvent.create({
+          data: { type: 'comprovante.aprovado', payload: { collectionId } },
+          select: { id: true },
+        });
       }
 
       const aprovou = decision === 'APPROVED';

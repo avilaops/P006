@@ -81,6 +81,7 @@ DECLARE
     "CollectionStatusHistory": ["collectionId", "Collection", "userId", "User"],
     "Manifest": ["driverId", "Driver", "vehicleId", "Vehicle", "helperId", "Helper"],
     "FinancialTransaction": ["clientId", "Client", "invoiceId", "Invoice"],
+    "DocumentDelivery": ["clientId", "Client"],
     "Invoice": ["clientId", "Client"],
     "Maintenance": ["vehicleId", "Vehicle"],
     "Fueling": ["vehicleId", "Vehicle", "driverId", "Driver"],
@@ -200,7 +201,8 @@ BEGIN
   CREATE OR REPLACE FUNCTION tms_evento_de_status() RETURNS trigger
     LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $f$
   BEGIN
-    IF EXISTS (SELECT 1 FROM "Webhook" w WHERE w."tenantId" = NEW."tenantId") THEN
+    IF EXISTS (SELECT 1 FROM "Webhook" w WHERE w."tenantId" = NEW."tenantId")
+       OR EXISTS (SELECT 1 FROM "TenantEmailSettings" s WHERE s."tenantId" = NEW."tenantId" AND s.enabled) THEN
       INSERT INTO "OutboxEvent" (id, "tenantId", type, payload, "createdAt", "nextAttemptAt", attempts)
       VALUES (
         gen_random_uuid()::text, NEW."tenantId", 'coleta.status',
@@ -234,7 +236,10 @@ BEGIN
       END;
     END IF;
 
-    IF tipo IS NOT NULL AND EXISTS (SELECT 1 FROM "Webhook" w WHERE w."tenantId" = NEW."tenantId") THEN
+    IF tipo IS NOT NULL AND (
+      EXISTS (SELECT 1 FROM "Webhook" w WHERE w."tenantId" = NEW."tenantId")
+      OR EXISTS (SELECT 1 FROM "TenantEmailSettings" s WHERE s."tenantId" = NEW."tenantId" AND s.enabled)
+    ) THEN
       INSERT INTO "OutboxEvent" (id, "tenantId", type, payload, "createdAt", "nextAttemptAt", attempts)
       VALUES (gen_random_uuid()::text, NEW."tenantId", tipo, jsonb_build_object('invoiceId', NEW.id), now(), now(), 0);
     END IF;

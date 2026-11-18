@@ -98,6 +98,7 @@ model Tenant {
   socialPosts          SocialPost[]
   contentMetrics       ContentMetric[]
   webhook              Webhook?
+  emailSettings        TenantEmailSettings?
   outboxEvents         OutboxEvent[]
   fuelings             Fueling[]
   vehicleDocuments     VehicleDocument[]
@@ -243,6 +244,8 @@ model DocumentDelivery {
   recipientEmail String
   status         String   @default("PENDING") // PENDING, QUEUED, SENT, DELIVERED, FAILED
   attempts       Int      @default(0)
+  nextAttemptAt  DateTime @default(now())
+  lastAttemptAt  DateTime?
   providerId     String?
   errorMessage   String?
   objectKey      String?
@@ -257,6 +260,25 @@ model DocumentDelivery {
   @@unique([tenantId, eventId, documentType, recipientEmail])
   @@index([tenantId, clientId, createdAt])
   @@index([tenantId, status, createdAt])
+  @@index([status, nextAttemptAt, createdAt])
+}
+
+// SMTP por transportadora. A senha é cifrada pela aplicação antes de gravar.
+model TenantEmailSettings {
+  tenantId       String   @unique @default(dbgenerated("current_setting('app.tenant_id'::text)"))
+  id             String   @id @default(uuid())
+  mode           String   @default("TMS") // TMS (env do serviço) ou PROPRIO
+  enabled        Boolean  @default(false)
+  fromName       String?
+  fromEmail      String?
+  smtpHost       String?
+  smtpPort       Int?
+  smtpSecure     Boolean  @default(true)
+  smtpUsername   String?
+  smtpPasswordCiphertext String? @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Restrict)
 }
 
 // ---------------------------------------------------------------------------

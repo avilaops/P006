@@ -19,6 +19,7 @@ export const TENTATIVAS = 8;
 /** Todo tipo de aviso que o sistema gera hoje, com o rótulo que a tela mostra. */
 export const TIPOS_DE_AVISO = {
   "coleta.status": "Carga mudou de status",
+  "comprovante.aprovado": "Comprovante aprovado",
   "fatura.emitida": "Fatura emitida",
   "fatura.paga": "Fatura paga",
   "fatura.reaberta": "Fatura reaberta",

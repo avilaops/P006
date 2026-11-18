@@ -1,6 +1,6 @@
 # WhatsApp Evolution no TMS • plano de implementação
 
-> Implementação nativa no worktree `feat/tms-whatsapp-evolution`; execução sequencial sem delegação.
+> Implementação publicada no TMS; execução sequencial sem delegação.
 
 **Objetivo:** integrar o WhatsApp Evolution ao funil comercial do TMS, com caixa de entrada por transportadora e mídia privada no R2.
 
@@ -74,12 +74,17 @@
 
 - [x] Mostrar conexão, QR e telefone vinculado sem expor segredos.
 - [x] Documentar variáveis, eventos habilitados, R2 privado, limites e passos para ambiente real.
-- [x] Registrar a integração como implementação local; não marcar publicação como concluída.
+- [x] Registrar a integração, implantação e validação real no controle da equipe.
 
 ## Verificação local
 
-- [x] `prisma validate`, `typecheck`, ESLint do escopo e `git diff --check` aprovados.
-- [ ] CI da PR #45: a primeira execução encontrou inventário de rotas/perfis e página MDX desatualizados; correções enviadas na cabeça `fb233d0` e a nova execução ainda precisa ser confirmada.
-- [ ] Aplicar `npm run db:push` no ambiente do TMS para criar as tabelas e reaplicar as políticas RLS.
-- [ ] Publicar a aplicação e validar pareamento, histórico e atendimento com o número real.
+- [x] `prisma validate`, typecheck, ESLint dos arquivos do WhatsApp e testes focados aprovados.
+- [x] CI da revisão `64abe5a` aprovada; PRs #45, #47 e #48 integradas.
+- [x] Confirmar em produção as tabelas WhatsApp com RLS e três políticas aplicadas.
+- [x] Publicar e validar saúde HTTP 200, instância `open`, webhook ativo e caixa autenticada.
+- [x] Confirmar 34 conversas, 379 mensagens importadas e leitura de anexo privado do R2 por HTTP 200.
+- [x] Deixar a importação histórica paginada e sob ação do atendente; a Evolution informa 61.047 mensagens no total, portanto não importar automaticamente milhares de conversas pessoais.
+- [x] Validar a caixa autenticada, conversas, histórico e compositor de resposta sem enviar uma mensagem real a um contato.
 - [x] Guardar credenciais somente no `.env` root-only do TMS e nunca no repositório.
+
+O histórico permanece disponível para continuação em Comercial → WhatsApp. A execução local passou em 103 arquivos e 1.555 testes, pulou 14 arquivos/1.182 testes sem banco e uma suíte de CMS com banco real falhou porque o ambiente local não tinha `DATABASE_URL`. A CI da revisão publicada concluiu com sucesso. O ESLint focado no módulo passou; o lint global ainda reporta erros fora do escopo.

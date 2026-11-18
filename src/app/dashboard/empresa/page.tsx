@@ -55,7 +55,7 @@ export default function EmpresaPage() {
   const [mensagem, setMensagem] = useState<{ ok: boolean; texto: string } | null>(null);
   const arquivo = useRef<HTMLInputElement>(null);
   // Uma área por vez evita a página interminável, no celular e no computador.
-  const [aba, setAba] = useState<"identidade" | "cobranca" | "integracao" | "fiscal">("identidade");
+  const [aba, setAba] = useState<"identidade" | "cobranca" | "integracao" | "email" | "fiscal">("identidade");
   const [parteDaCobranca, setParteDaCobranca] = useState<"encargos" | "mercado-pago">("encargos");
 
   useEffect(() => {
@@ -178,12 +178,13 @@ export default function EmpresaPage() {
         <p className="mt-1 text-sm text-gray-500">Configurações da transportadora, cobrança, conexões e emissão fiscal.</p>
       </div>
 
-      <div role="tablist" aria-label="Parte" className="grid grid-cols-4 gap-1 rounded-xl bg-gray-100 p-1 dark:bg-gray-800 md:max-w-2xl">
+      <div role="tablist" aria-label="Parte" className="grid grid-cols-2 gap-1 rounded-xl bg-gray-100 p-1 dark:bg-gray-800 md:grid-cols-5 md:max-w-3xl">
         {(
           [
             ["identidade", "Identidade"],
             ["cobranca", "Cobrança"],
             ["integracao", "Integração"],
+            ["email", "E-mail"],
             ["fiscal", "Fiscal"],
           ] as const
         ).map(([chave, rotulo]) => (
@@ -291,6 +292,8 @@ export default function EmpresaPage() {
         <Integracao escondida={aba !== "integracao"} />
         <IntegracaoLojas escondida={aba !== "integracao"} />
       </div>
+
+      <EmailDocumentos escondida={aba !== "email"} />
 
       <Fiscal escondida={aba !== "fiscal"} />
     </div>
@@ -654,6 +657,134 @@ const TIPO: Record<string, string> = {
   "mdfe.cancelado": "MDF-e cancelado",
   teste: "Teste",
 };
+
+const DOCUMENTO_EMAIL: Record<string, string> = {
+  comprovantePdf: "Comprovante", cteXml: "XML do CT-e", dactePdf: "DACTE",
+  boletoPdf: "Boleto/link", faturaPdf: "Fatura", vencimento: "Cobrança vencida",
+};
+
+type EmailDelivery = { id: string; documentType: string; recipientEmail: string; status: string; attempts: number; errorMessage: string | null; createdAt: string; sentAt: string | null };
+type EmailSettings = {
+  mode: "TMS" | "PROPRIO"; enabled: boolean; fromName: string; fromEmail: string;
+  smtpHost: string; smtpPort: number; smtpSecure: boolean; smtpUsername: string;
+  passwordConfigured: boolean; centralAvailable: boolean; encryptionAvailable: boolean;
+  entregas: EmailDelivery[];
+};
+
+const EMAIL_VAZIO: EmailSettings = {
+  mode: "TMS", enabled: false, fromName: "", fromEmail: "", smtpHost: "", smtpPort: 587,
+  smtpSecure: false, smtpUsername: "", passwordConfigured: false, centralAvailable: false,
+  encryptionAvailable: false, entregas: [],
+};
+
+function EmailDocumentos({ escondida }: { escondida: boolean }) {
+  const [config, setConfig] = useState<EmailSettings>(EMAIL_VAZIO);
+  const [senha, setSenha] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const [mensagem, setMensagem] = useState<{ ok: boolean; texto: string } | null>(null);
+
+  const ler = async () => {
+    const response = await fetch("/api/empresa/email");
+    if (!response.ok) throw new Error("Não foi possível carregar a configuração de e-mail.");
+    setConfig((await response.json()) as EmailSettings);
+  };
+  useEffect(() => {
+    let ativo = true;
+    void fetch("/api/empresa/email").then(async (response) => {
+      if (!response.ok) throw new Error();
+      const body = (await response.json()) as EmailSettings;
+      if (ativo) setConfig(body);
+    }).catch(() => { if (ativo) setMensagem({ ok: false, texto: "Não foi possível carregar a configuração de e-mail." }); });
+    return () => { ativo = false; };
+  }, []);
+
+  const salvar = async (event: React.FormEvent) => {
+    event.preventDefault(); setOcupado(true); setMensagem(null);
+    try {
+      const response = await fetch("/api/empresa/email", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: config.mode, enabled: config.enabled, fromName: config.fromName.trim() || null,
+          fromEmail: config.fromEmail.trim() || null, smtpHost: config.smtpHost.trim() || null,
+          smtpPort: config.mode === "PROPRIO" ? Number(config.smtpPort) : null,
+          smtpSecure: config.smtpSecure, smtpUsername: config.smtpUsername.trim() || null,
+          ...(senha ? { smtpPassword: senha } : {}),
+        }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(body?.error || "Não foi possível salvar a configuração.");
+      setSenha(""); setMensagem({ ok: true, texto: "Configuração de e-mail salva." }); await ler();
+    } catch (error) {
+      setMensagem({ ok: false, texto: error instanceof Error ? error.message : "Não foi possível salvar a configuração." });
+    } finally { setOcupado(false); }
+  };
+
+  const testar = async () => {
+    setOcupado(true); setMensagem(null);
+    try {
+      const response = await fetch("/api/empresa/email/teste", { method: "POST" });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(body?.error || "Falha no teste SMTP.");
+      setMensagem({ ok: true, texto: `O servidor SMTP aceitou o teste para ${body.to}.` });
+      await ler();
+    } catch (error) { setMensagem({ ok: false, texto: error instanceof Error ? error.message : "Falha no teste SMTP." }); }
+    finally { setOcupado(false); }
+  };
+
+  const tentarNovamente = async (id: string) => {
+    setOcupado(true); setMensagem(null);
+    try {
+      const response = await fetch(`/api/empresa/email/${id}/reenviar`, { method: "POST" });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(body?.error || "Não foi possível colocar o e-mail na fila.");
+      setMensagem({ ok: true, texto: "Envio colocado novamente na fila." }); await ler();
+    } catch (error) { setMensagem({ ok: false, texto: error instanceof Error ? error.message : "Falha ao reenviar." }); }
+    finally { setOcupado(false); }
+  };
+
+  const campo = (key: "fromName" | "fromEmail" | "smtpHost" | "smtpUsername") => (event: React.ChangeEvent<HTMLInputElement>) => setConfig((old) => ({ ...old, [key]: event.target.value }));
+
+  return <section aria-label="Envios de documentos por e-mail" className={`${escondida ? "hidden " : ""}${CARD} p-4 md:p-6 space-y-4`}>
+    <div>
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="font-semibold text-gray-900 dark:text-white">Envios documentais por e-mail</h2>
+        <span className={`rounded-full px-2 py-1 text-xs font-semibold ${config.enabled ? "bg-emerald-50 text-emerald-700" : "bg-gray-100 text-gray-600"}`}>{config.enabled ? "Ativo" : "Desativado"}</span>
+      </div>
+      <p className="mt-1 text-sm text-gray-500">Envie comprovantes aprovados, CT-e autorizado, faturas e avisos de vencimento para os contatos configurados no cadastro de cada cliente.</p>
+    </div>
+
+    <form onSubmit={(event) => void salvar(event)} className="space-y-4">
+      <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={config.enabled} onChange={(event) => setConfig((old) => ({ ...old, enabled: event.target.checked }))} /> Ativar envios automáticos</label>
+      <label className="block space-y-1"><span className={LABEL}>Serviço de envio</span>
+        <select className={INPUT} value={config.mode} onChange={(event) => setConfig((old) => ({ ...old, mode: event.target.value as EmailSettings["mode"] }))}>
+          <option value="TMS">Serviço central do TMS {config.centralAvailable ? "• disponível" : "• ainda não provisionado"}</option>
+          <option value="PROPRIO">Usar meu servidor SMTP</option>
+        </select>
+      </label>
+      {config.mode === "TMS" ? <p className="text-xs text-gray-500">O serviço central só pode ser ativado quando o SMTP remetente da Ávila Ops estiver provisionado.</p> : <>
+        {!config.encryptionAvailable && <p role="alert" className="text-sm text-amber-700">O servidor precisa de TMS_CHAVE_DE_DADOS para guardar a senha SMTP cifrada.</p>}
+        <div className="grid gap-3 md:grid-cols-2">
+          <label className="block space-y-1"><span className={LABEL}>Servidor SMTP</span><input required maxLength={253} placeholder="smtp.suaempresa.com.br" value={config.smtpHost} onChange={campo("smtpHost")} className={INPUT} /></label>
+          <label className="block space-y-1"><span className={LABEL}>Porta</span><input required type="number" min={1} max={65535} value={config.smtpPort} onChange={(event) => setConfig((old) => ({ ...old, smtpPort: Number(event.target.value) }))} className={INPUT} /></label>
+          <label className="block space-y-1"><span className={LABEL}>Usuário SMTP</span><input required autoComplete="username" value={config.smtpUsername} onChange={campo("smtpUsername")} className={INPUT} /></label>
+          <label className="block space-y-1"><span className={LABEL}>Senha SMTP</span><input type="password" autoComplete="new-password" placeholder={config.passwordConfigured ? "Senha salva • deixe vazio para manter" : "Senha SMTP"} value={senha} onChange={(event) => setSenha(event.target.value)} className={INPUT} /></label>
+          <label className="block space-y-1"><span className={LABEL}>Nome do remetente</span><input maxLength={120} value={config.fromName} onChange={campo("fromName")} className={INPUT} /></label>
+          <label className="block space-y-1"><span className={LABEL}>E-mail do remetente</span><input required type="email" value={config.fromEmail} onChange={campo("fromEmail")} className={INPUT} /></label>
+        </div>
+        <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={config.smtpSecure} onChange={(event) => setConfig((old) => ({ ...old, smtpSecure: event.target.checked }))} /> Conexão TLS direta • normalmente porta 465; desmarcado exige STARTTLS</label>
+      </>}
+      <div className="flex flex-wrap gap-2">
+        <button type="submit" disabled={ocupado} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium disabled:opacity-60">{ocupado ? "Salvando…" : "Salvar configuração"}</button>
+        <button type="button" disabled={ocupado || !config.enabled} onClick={() => void testar()} className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-sm disabled:opacity-50">Enviar teste para meu e-mail de acesso</button>
+      </div>
+    </form>
+    {mensagem && <p role={mensagem.ok ? "status" : "alert"} className={`text-sm ${mensagem.ok ? "text-green-700" : "text-red-600"}`}>{mensagem.texto}</p>}
+      <p className="text-xs text-gray-500">O comprovante inclui as fotos e link do portal. CT-e envia o XML e tenta gerar o DACTE. Fatura e cobrança levam resumo e links; hoje não há PDF próprio de fatura nem anexo PDF do boleto. O teste confirma o aceite SMTP, não a entrega ou leitura. Os destinatários são escolhidos no cadastro de cada cliente.</p>
+    {config.entregas.length > 0 && <div className="space-y-2"><div className="flex items-center justify-between"><h3 className={LABEL}>Envios recentes</h3><button type="button" onClick={() => void ler().catch(() => undefined)} className="text-xs text-blue-600">Atualizar</button></div>
+      <ul className="divide-y divide-gray-100 dark:divide-gray-800 text-sm">{config.entregas.map((item) => <li key={item.id} className="flex flex-wrap items-center justify-between gap-2 py-2"><span className="min-w-0"><strong>{DOCUMENTO_EMAIL[item.documentType] ?? item.documentType}</strong> • {item.recipientEmail}<small className="block text-xs text-gray-500">{item.status === "SENT" ? "Aceito pelo SMTP" : item.status === "FAILED" ? item.errorMessage || "Falhou" : item.status === "QUEUED" ? "Enviando" : "Na fila"} • {new Date(item.createdAt).toLocaleString("pt-BR")}</small></span>{item.status === "FAILED" && <button type="button" disabled={ocupado || !config.enabled} onClick={() => void tentarNovamente(item.id)} className="text-xs text-blue-600 disabled:opacity-50">Tentar de novo</button>}</li>)}</ul>
+    </div>}
+  </section>;
+}
 
 const quando = (instante: string) =>
   new Date(instante).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });

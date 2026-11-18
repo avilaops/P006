@@ -401,7 +401,7 @@
       "objective": "Implementar atendimento WhatsApp multiempresa no TMS, importar histórico disponível, guardar anexos no R2 privado e vincular cotações revisadas à conversa.",
       "assignee": "agent-code",
       "priority": "high",
-      "status": "em-andamento",
+      "status": "concluida",
       "acceptanceCriteria": [
         "Conexão Evolution deriva instância por tenant e protege webhook sem expor tokens",
         "Mensagens novas e histórico importado são deduplicados e isolados por RLS",
@@ -409,17 +409,36 @@
         "Caixa permite responder, arquivar e abrir cotação manual vinculada à conversa",
         "Esquema Prisma é válido; documentação lista variáveis e passos de ativação"
       ],
-      "evidence": "PR #45 mesclada em 4c00b73f9f53b70d62f6d7f32792417019971366; PR #46 timeout de CI em 9909edb7802753e645ccaa1db0d05a43ad6078cc. Deploy applications 44103609800 e redeploy 44106897106 aprovados; schema e RLS aplicados; credenciais R2/Evolution configuradas e verificadas. SSO corrigido e OIDC validado. Home e health HTTP 200. Usuário selecionou Ávila Transportes Intermunicipal LTDA. A PR #47 usou documentação camelCase, mas a Evolution v2.3.7 rejeitou payload plano com HTTP 400. O erro real da API indicou que o esquema exige uma propriedade webhook; teste direto confirmou HTTP 201 com {webhook:{enabled,url,byEvents,base64,events}}. PR #47 mesclada em 5e831e327755006370e5ec087fcb868f052ad623 e deploy applications 44111534312 concluído; versão ativa responde health ok nesse commit, porém o painel ainda precisa da correção para o formato aninhado. A instância de teste está connecting; QR, pareamento, histórico e atendimento pendentes.",
+      "evidence": "PR #45 e correções #47/#48 integradas; CI da revisão 64abe5a (run 44116885762) concluída com sucesso e deploy applications ativo. Health público HTTP 200 na revisão 64abe5a. Evolution v2.3.7 responde HTTP 200; instância da Ávila Transportes em estado open e webhook ativo para tms.avilaops.com, com MESSAGES_UPSERT e CONNECTION_UPDATE. Banco de produção consultado sob role tms_app: WhatsAppConnection CONNECTED, 34 conversas, 379 mensagens; tabelas com RLS habilitado e três políticas. R2 privado validado pela rota autenticada: HTTP 200, audio/ogg, 15.745 bytes. Painel autenticado mostra caixa conectada, histórico e compositor de resposta; implementação inclui resposta, arquivamento e cotação vinculada. Prisma validate, typecheck, ESLint do escopo e 19 testes focados aprovados localmente. A importação segue manual e paginada: 379 de 61.047 mensagens disponíveis, sem carga automática do histórico pessoal inteiro; a ação Continuar histórico permanece na caixa. Nenhuma mensagem real foi enviada como teste.",
       "owner": "agent-code",
       "acceptance": "Conexão Evolution deriva instância por tenant e protege webhook sem expor tokens\nMensagens novas e histórico importado são deduplicados e isolados por RLS\nAnexos ficam no bucket R2 privado e são lidos por rota autenticada\nCaixa permite responder, arquivar e abrir cotação manual vinculada à conversa\nEsquema Prisma é válido; documentação lista variáveis e passos de ativação",
-      "blocker": "Aguardando CI, merge e deploy do payload aninhado do webhook; depois o usuário precisa escanear o QR para validar conexão, histórico e atendimento na caixa.",
+      "blocker": "",
       "history": [
         {
           "at": "2026-11-17",
-          "status": "em-andamento",
-          "note": "PR #47 e deploy 5e831e3 saudáveis, mas a Evolution v2.3.7 exige o corpo {webhook:{...}}; resposta 400 confirmada e teste direto do formato aninhado retornou 201. A correção está em andamento; após CI/deploy falta escanear QR e validar histórico e atendimento."
+          "status": "concluida",
+          "note": "Fechamento verificado em produção: CI e deploy 64abe5a saudáveis; Evolution conectada e webhook ativo; RLS, histórico paginado e leitura privada no R2 comprovados. O botão Continuar histórico mantém importação sob ação do atendente porque a Evolution oferece 61.047 mensagens. Envio real não foi usado como teste."
         }
       ]
+    },
+    {
+      "id": "T-0017",
+      "title": "Envios de documentos por e-mail configuráveis por transportadora",
+      "objective": "Implementar envios de comprovante aprovado, CT-e autorizado, fatura emitida e cobrança vencida por SMTP configurável, usando destinatários por cliente e histórico independente do webhook.",
+      "assignee": "agent-code",
+      "priority": "high",
+      "status": "concluida",
+      "acceptanceCriteria": [
+        "Transportadora escolhe SMTP central provisionado ou SMTP próprio com senha cifrada e nunca retornada à tela",
+        "Destinatários e documentos selecionados por cliente controlam os envios automáticos",
+        "Comprovante só é enviado após aprovação; CT-e só em produção autorizado; fatura e cobrança usam estado atual",
+        "Cada destinatário/documento é idempotente, tem tentativas e histórico; SMTP não altera status do webhook",
+        "Interface permite testar SMTP e reenfileirar falha, com aviso claro sobre aceite versus entrega",
+        "Documentação identifica arquivos anexados e itens enviados como link; ambiente central só reportado disponível com credenciais provisionadas"
+      ],
+      "evidence": "Implementação local: SMTP central por ambiente ou SMTP próprio por tenant com senha cifrada, API administrativa de configuração/teste/reenfileiramento, seleção por cliente e fila DocumentDelivery idempotente separada do webhook; eventos de comprovante aprovado, CT-e autorizado em produção, fatura emitida e título vencido; fotos de comprovante, XML/DACTE e links de fatura/boleto/Pix conforme disponibilidade. Prisma validate, typecheck, ESLint do escopo e git diff --check aprovados. Nenhuma suíte de testes foi executada e não houve CI, configuração real de credenciais nem publicação.",
+      "blocker": "Ativação em produção requer credenciais TMS_SMTP_* no serviço ou SMTP próprio configurado em Empresa • E-mail e teste pelo administrador; publicação ainda pendente.",
+      "history": [{ "at": "2026-11-17", "status": "concluida", "note": "Implementação local concluída e validações estáticas aprovadas. Sem agentes delegados. Ativação e publicação de produção dependem de SMTP provisionado e deploy." }]
     }
   ],
   "decisions": [

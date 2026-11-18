@@ -39,6 +39,14 @@ Ela atualiza o esquema e reaplica as políticas RLS em `prisma/sql/010-rls.sql`.
 ## Limites conhecidos
 
 - Importação começa após conectar. Mensagens que não existem mais na Evolution não podem ser recuperadas pelo TMS.
+- A importação completa é paginada e iniciada manualmente pela caixa; não importa automaticamente todo o histórico pessoal.
 - Tipos de anexo sem MIME permitido ou acima de 10 MiB aparecem como indisponíveis.
 - O módulo não envia preço automaticamente. A equipe revisa todos os campos da cotação.
-- Nenhuma conexão ou número real foi pareado pela implementação local.
+
+## Verificação de produção • 17/11/2026
+
+- A instância da Ávila Transportes está conectada (`open`) e o webhook está ativo em `https://tms.avilaops.com`.
+- O painel autenticado exibiu 34 conversas e 379 mensagens importadas; a Evolution informa 61.047 mensagens disponíveis e a importação continua sob ação do atendente.
+- A leitura autenticada de um anexo privado no bucket R2 respondeu HTTP 200 (`audio/ogg`, 15.745 bytes).
+- O TMS responde HTTP 200 no health check, na revisão `64abe5a`.
+- O envio real de uma mensagem pela caixa não foi usado como teste, para não enviar conteúdo a um contato sem escolha explícita.

@@ -11,7 +11,7 @@ const EVENTOS: Record<string, readonly Documento[]> = {
   "cte.autorizado": ["cteXml", "dactePdf"],
   "fatura.emitida": ["boletoPdf", "faturaPdf"],
   "cobranca.vencida": ["vencimento"],
-  "coleta.status": ["comprovantePdf"],
+  "comprovante.aprovado": ["comprovantePdf"],
 };
 
 export function selecionarDestinatarios(
@@ -27,7 +27,7 @@ export function selecionarDestinatarios(
   const permitidos = EVENTOS[tipo];
   if (!permitidos || !Array.isArray(destinatarios)) return [];
   // Nunca sugerir comprovante sem status entregue.
-  if (tipo === "coleta.status") {
+  if (tipo === "comprovante.aprovado") {
     const coleta = dados.coleta as { status?: string } | null;
     if (coleta?.status !== "DELIVERED") return [];
   }
@@ -39,6 +39,10 @@ export function selecionarDestinatarios(
   if (tipo === "fatura.emitida") {
     const fatura = dados.fatura as { status?: string; cobranca?: { boleto?: unknown } } | null;
     if (!fatura || fatura.status !== "OPEN") return [];
+  }
+  if (tipo === "cobranca.vencida") {
+    const titulo = dados.titulo as { emAberto?: boolean } | null;
+    if (!titulo?.emAberto) return [];
   }
   return (destinatarios as Destinatario[]).flatMap((destinatario) => {
     if (!destinatario || typeof destinatario.email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(destinatario.email.trim()) || !Array.isArray(destinatario.documents)) return [];
