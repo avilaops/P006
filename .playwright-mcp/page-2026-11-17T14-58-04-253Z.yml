@@ -1,0 +1,68 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - complementary [ref=f4e3]:
+      - generic [ref=f4e4]: TMS
+      - navigation [ref=f4e12]
+      - generic [ref=f4e13]:
+        - generic [ref=f4e14]:
+          - generic [ref=f4e15]: U
+          - generic [ref=f4e16]:
+            - paragraph [ref=f4e17]: Usuário
+            - paragraph
+        - button "Sair do sistema" [ref=f4e18] [cursor=pointer]
+    - main [ref=f4e23]:
+      - generic [ref=f4e24]:
+        - heading "Visão Geral" [level=2] [ref=f4e25]
+        - button "Avisos" [ref=f4e27] [cursor=pointer]
+      - generic [ref=f4e32]:
+        - generic [ref=f4e33]:
+          - generic [ref=f4e34]:
+            - generic [ref=f4e35]: Ativas
+            - link "Coletas" [ref=f4e43] [cursor=pointer]:
+              - /url: /dashboard/coletas
+            - paragraph [ref=f4e44]
+          - generic [ref=f4e47]:
+            - generic [ref=f4e48]: Em rota
+            - link "Viagens (MDF-e)" [ref=f4e57] [cursor=pointer]:
+              - /url: /dashboard/manifestos
+            - paragraph [ref=f4e58]
+          - generic [ref=f4e61]:
+            - generic [ref=f4e62]: Ativos
+            - link "Clientes" [ref=f4e71] [cursor=pointer]:
+              - /url: /dashboard/clientes
+            - paragraph [ref=f4e72]
+        - generic [ref=f4e75]:
+          - generic [ref=f4e77]:
+            - heading "Entregas na semana" [level=3] [ref=f4e78]
+            - generic [ref=f4e79]:
+              - generic [ref=f4e80]:
+                - generic [ref=f4e81]: —
+                - generic [ref=f4e83]: Seg
+              - generic [ref=f4e84]:
+                - generic [ref=f4e85]: —
+                - generic [ref=f4e87]: Ter
+              - generic [ref=f4e88]:
+                - generic [ref=f4e89]: —
+                - generic [ref=f4e91]: Qua
+              - generic [ref=f4e92]:
+                - generic [ref=f4e93]: —
+                - generic [ref=f4e95]: Qui
+              - generic [ref=f4e96]:
+                - generic [ref=f4e97]: —
+                - generic [ref=f4e99]: Sex
+              - generic [ref=f4e100]:
+                - generic [ref=f4e101]: —
+                - generic [ref=f4e103]: Sáb
+              - generic [ref=f4e104]:
+                - generic [ref=f4e105]: —
+                - generic [ref=f4e107]: Dom
+          - generic [ref=f4e109]:
+            - heading "Ações Rápidas" [level=3] [ref=f4e110]
+            - generic [ref=f4e111]:
+              - link "Emitir Minuta" [ref=f4e112] [cursor=pointer]:
+                - /url: /dashboard/coletas
+              - link "Nova Viagem" [ref=f4e119] [cursor=pointer]:
+                - /url: /dashboard/manifestos
+              - link "Importar NF-e" [ref=f4e127] [cursor=pointer]:
+                - /url: /dashboard/fiscal
+  - alert [ref=f4e133]

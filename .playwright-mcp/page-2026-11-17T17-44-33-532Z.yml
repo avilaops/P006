@@ -1,0 +1,41 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]: TMS
+      - navigation [ref=e12]
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: U
+          - generic [ref=e16]:
+            - paragraph [ref=e17]: Usuário
+            - paragraph
+        - button "Sair do sistema" [ref=e18] [cursor=pointer]
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - heading "WhatsApp" [level=2] [ref=e25]
+        - button "Avisos" [ref=e27] [cursor=pointer]
+      - main [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - heading "Caixa do WhatsApp" [level=1] [ref=e36]
+              - paragraph [ref=e37]: Conversas de cotação • histórico sincronizado por empresa
+            - generic [ref=e38]:
+              - generic [ref=e39]: Desconectado
+              - link "Canais" [ref=e41] [cursor=pointer]:
+                - /url: /dashboard/empresa
+              - button "Atualizar" [ref=e45] [cursor=pointer]
+          - generic [ref=e51]:
+            - complementary [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]:
+                  - heading "Conversas" [level=2] [ref=e55]
+                  - generic [ref=e56]: "0"
+                - textbox "Buscar conversa" [ref=e57]
+              - paragraph [ref=e59]: Carregando…
+            - generic [ref=e61]:
+              - heading "Organize as cotações que chegam pelo WhatsApp" [level=2] [ref=e65]
+              - paragraph [ref=e66]: O histórico fica na caixa do TMS; os anexos são privados no R2 da Ávila Ops.
+              - button "Evolution API não configurada" [disabled] [ref=e67]
+          - paragraph [ref=e77]: "A conexão depende de `EVOLUTION_API_URL` e `EVOLUTION_API_KEY` no servidor. O pareamento fica disponível ao administrador após essa configuração."
+  - alert [ref=e78]

@@ -1,0 +1,161 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]: Avila Transportes Intermunicipal LTDA
+      - navigation [ref=e12]:
+        - link "Visão Geral" [ref=e81] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: Comercial
+          - generic [ref=e90]:
+            - link "Clientes" [ref=e91] [cursor=pointer]:
+              - /url: /dashboard/clientes
+            - link "Cotações" [ref=e98] [cursor=pointer]:
+              - /url: /dashboard/crm
+            - link "WhatsApp" [ref=e103] [cursor=pointer]:
+              - /url: /dashboard/crm/whatsapp
+            - link "Tabelas de frete" [ref=e107] [cursor=pointer]:
+              - /url: /dashboard/tabelas-frete
+        - generic [ref=e111]:
+          - paragraph [ref=e112]: Operação
+          - generic [ref=e113]:
+            - link "Minutas" [ref=e114] [cursor=pointer]:
+              - /url: /dashboard/coletas
+            - link "Depósito" [ref=e120] [cursor=pointer]:
+              - /url: /dashboard/deposito
+            - link "Manifestos" [ref=e125] [cursor=pointer]:
+              - /url: /dashboard/manifestos
+            - link "Comprovantes" [ref=e131] [cursor=pointer]:
+              - /url: /dashboard/comprovantes
+            - link "Ocorrências" [ref=e137] [cursor=pointer]:
+              - /url: /dashboard/ocorrencias
+            - link "Notas fiscais" [ref=e142] [cursor=pointer]:
+              - /url: /dashboard/fiscal
+        - generic [ref=e147]:
+          - paragraph [ref=e148]: Financeiro
+          - generic [ref=e149]:
+            - link "Faturamento" [ref=e150] [cursor=pointer]:
+              - /url: /dashboard/faturamento
+            - link "Cobrança" [ref=e155] [cursor=pointer]:
+              - /url: /dashboard/cobranca
+            - link "Financeiro" [ref=e160] [cursor=pointer]:
+              - /url: /dashboard/financeiro
+        - generic [ref=e164]:
+          - paragraph [ref=e165]: Frota
+          - generic [ref=e166]:
+            - link "Motoristas" [ref=e167] [cursor=pointer]:
+              - /url: /dashboard/motoristas
+            - link "Veículos" [ref=e172] [cursor=pointer]:
+              - /url: /dashboard/veiculos
+            - link "Parceiros" [ref=e179] [cursor=pointer]:
+              - /url: /dashboard/parceiros
+            - link "Equipe" [ref=e186] [cursor=pointer]:
+              - /url: /dashboard/equipe
+            - link "Alertas" [ref=e193] [cursor=pointer]:
+              - /url: /dashboard/frota
+        - generic [ref=e197]:
+          - paragraph [ref=e198]: Sistema
+          - generic [ref=e199]:
+            - link "Relatórios" [ref=e200] [cursor=pointer]:
+              - /url: /dashboard/relatorios
+            - link "Mensageria" [ref=e204] [cursor=pointer]:
+              - /url: /dashboard/mensagens
+            - link "Auditoria" [ref=e209] [cursor=pointer]:
+              - /url: /dashboard/auditoria
+            - link "Usuários" [ref=e215] [cursor=pointer]:
+              - /url: /dashboard/usuarios
+            - link "Empresa" [ref=e229] [cursor=pointer]:
+              - /url: /dashboard/empresa
+            - link "Meu site • cortesia" [ref=e235] [cursor=pointer]:
+              - /url: /dashboard/site
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: "N"
+          - generic [ref=e16]:
+            - paragraph [ref=e17]: Nícolas Rosa Ávila Barros (Ávila Ops)
+            - paragraph [ref=e240]: nicolas@avilaops.com
+        - button "Sair do sistema" [ref=e18] [cursor=pointer]
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - heading "WhatsApp" [level=2] [ref=e25]
+        - button "Avisos" [ref=e27] [cursor=pointer]
+      - main [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - heading "Caixa do WhatsApp" [level=1] [ref=e36]
+              - paragraph [ref=e37]: Conversas de cotação • histórico sincronizado por empresa
+            - generic [ref=e38]:
+              - generic [ref=e39]: Conectado
+              - link "Canais" [ref=e41] [cursor=pointer]:
+                - /url: /dashboard/empresa
+              - button "Continuar histórico • 26" [ref=e262] [cursor=pointer]
+              - button "Atualizar" [active] [ref=e45] [cursor=pointer]
+          - status [ref=e244]: O WhatsApp precisa estar conectado para importar o histórico.
+          - generic [ref=e245]:
+            - img "QR Code para conectar o WhatsApp" [ref=e246]
+            - generic [ref=e247]:
+              - heading "Conecte o número da transportadora" [level=2] [ref=e248]
+              - paragraph [ref=e249]: No WhatsApp • Aparelhos conectados • Conectar aparelho • leia este QR Code.
+              - paragraph [ref=e250]: O código é temporário. Se expirar, gere outro.
+              - button "Atualizar QR Code" [ref=e251] [cursor=pointer]
+          - generic [ref=e51]:
+            - complementary [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]:
+                  - heading "Conversas" [level=2] [ref=e55]
+                  - generic [ref=e56]: "6"
+                - textbox "Buscar conversa" [ref=e57]
+              - generic [ref=e58]:
+                - button "VO Você 17/11, 12:35 Anexo 183910549950467 • Aberta" [ref=e263] [cursor=pointer]:
+                  - generic [ref=e264]: VO
+                  - generic [ref=e265]:
+                    - generic [ref=e266]:
+                      - generic [ref=e267]: Você
+                      - generic [ref=e268]: 17/11, 12:35
+                    - generic [ref=e269]: Anexo
+                    - generic [ref=e270]: 183910549950467 • Aberta
+                - button "VO Você 17/11, 12:34 BL 218540904849486 • Aberta" [ref=e271] [cursor=pointer]:
+                  - generic [ref=e272]: VO
+                  - generic [ref=e273]:
+                    - generic [ref=e274]:
+                      - generic [ref=e275]: Você
+                      - generic [ref=e276]: 17/11, 12:34
+                    - generic [ref=e277]: BL
+                    - generic [ref=e278]: 218540904849486 • Aberta
+                - button "26 268925250089055 17/11, 12:00 Anexo 268925250089055 • Aberta" [ref=e279] [cursor=pointer]:
+                  - generic [ref=e280]: "26"
+                  - generic [ref=e281]:
+                    - generic [ref=e282]:
+                      - generic [ref=e283]: "268925250089055"
+                      - generic [ref=e284]: 17/11, 12:00
+                    - generic [ref=e285]: Anexo
+                    - generic [ref=e286]: 268925250089055 • Aberta
+                - button "VO Você 17/11, 11:54 Ja te chamo 119756657004593 • Aberta" [ref=e287] [cursor=pointer]:
+                  - generic [ref=e288]: VO
+                  - generic [ref=e289]:
+                    - generic [ref=e290]:
+                      - generic [ref=e291]: Você
+                      - generic [ref=e292]: 17/11, 11:54
+                    - generic [ref=e293]: Ja te chamo
+                    - generic [ref=e294]: 119756657004593 • Aberta
+                - button "VO Você 17/11, 11:52 Anexo 264622162616391 • Aberta" [ref=e295] [cursor=pointer]:
+                  - generic [ref=e296]: VO
+                  - generic [ref=e297]:
+                    - generic [ref=e298]:
+                      - generic [ref=e299]: Você
+                      - generic [ref=e300]: 17/11, 11:52
+                    - generic [ref=e301]: Anexo
+                    - generic [ref=e302]: 264622162616391 • Aberta
+                - button "19 193643163988194 17/11, 11:29 Vc ficou de mandar um pouco de dinheiro ontem? 193643163988194 • Aberta" [ref=e303] [cursor=pointer]:
+                  - generic [ref=e304]: "19"
+                  - generic [ref=e305]:
+                    - generic [ref=e306]:
+                      - generic [ref=e307]: "193643163988194"
+                      - generic [ref=e308]: 17/11, 11:29
+                    - generic [ref=e309]: Vc ficou de mandar um pouco de dinheiro ontem?
+                    - generic [ref=e310]: 193643163988194 • Aberta
+            - generic [ref=e61]:
+              - heading "Organize as cotações que chegam pelo WhatsApp" [level=2] [ref=e65]
+              - paragraph [ref=e66]: O histórico fica na caixa do TMS; os anexos são privados no R2 da Ávila Ops.
+  - alert [ref=e78]

@@ -1,0 +1,51 @@
+- main [ref=e2]:
+  - navigation [ref=e3]:
+    - link "Avila CRM, início" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e6]:
+        - generic [ref=e7]: AVILA CRM
+        - generic [ref=e8]: AVILA OPS
+    - generic [ref=e9]:
+      - link "Documentação" [ref=e10] [cursor=pointer]:
+        - /url: /docs/
+      - link "Produto" [ref=e11] [cursor=pointer]:
+        - /url: /#produto
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: OPERAÇÃO MAIS CLARA
+        - heading "Relacionamentos bem cuidados viram crescimento." [level=1] [ref=e16]
+        - paragraph [ref=e17]: O CRM da Avila Ops para sua equipe acompanhar conversas, oportunidades e clientes com contexto, ritmo e responsabilidade.
+        - paragraph [ref=e18]: Conectando ao acesso Avila Ops…
+        - generic [ref=e19]: Sessão protegida pela conta Avila Ops
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - paragraph [ref=e24]: VISÃO DA OPERAÇÃO
+            - paragraph [ref=e25]: Hoje, sem ruído
+          - generic [ref=e26]: Ativo
+        - generic [ref=e27]:
+          - paragraph [ref=e30]: 12 conversas aguardando
+          - paragraph [ref=e33]: 8 oportunidades em avanço
+          - paragraph [ref=e36]: 24 contatos acompanhados
+          - paragraph [ref=e39]: 3 tarefas para hoje
+        - paragraph [ref=e40]: Cada pessoa sabe o que precisa acontecer a seguir.
+    - generic [ref=e41]:
+      - article [ref=e42]:
+        - heading "Conversas em um só lugar" [level=2] [ref=e47]
+        - paragraph [ref=e48]: Organize atendimento, histórico e próximos passos sem alternar entre ferramentas.
+      - article [ref=e49]:
+        - heading "Relacionamentos que continuam" [level=2] [ref=e55]
+        - paragraph [ref=e56]: Tenha contexto de pessoas, empresas e oportunidades em cada contato.
+      - article [ref=e57]:
+        - heading "Automação com supervisão" [level=2] [ref=e62]
+        - paragraph [ref=e63]: Use IA para acelerar o trabalho, mantendo a decisão nas mãos da equipe.
+  - generic [ref=e64]:
+    - generic [ref=e65]: Avila CRM · Avila Ops
+    - generic [ref=e66]:
+      - link "Documentação" [ref=e67] [cursor=pointer]:
+        - /url: /docs/
+      - link "Privacidade" [ref=e68] [cursor=pointer]:
+        - /url: /privacidade/
+      - link "Termos" [ref=e69] [cursor=pointer]:
+        - /url: /termos/
