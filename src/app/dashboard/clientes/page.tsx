@@ -522,7 +522,7 @@ export default function ClientesPage() {
                     ))}</div>
                   </div>
                 ))}
-                <p className="text-xs text-gray-500">Estas preferências não geram envios sem um documento disponível, uma integração de entrega e registro de auditoria.</p>
+                <p className="text-xs text-gray-500">Os envios usam o SMTP configurado em Empresa • E-mail. Comprovantes só saem depois da aprovação; o histórico fica em Envios documentais por e-mail.</p>
               </fieldset>)}
             </div>
 

@@ -1,0 +1,368 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - heading "TUI Tecnologia" [level=1] [ref=e7]
+          - paragraph [ref=e8]: Soluções em Tecnologia
+        - text: 
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - link "Início" [ref=e11] [cursor=pointer]:
+              - /url: index.html
+          - listitem [ref=e12]:
+            - link "Serviços" [ref=e13] [cursor=pointer]:
+              - /url: servicos.html
+          - listitem [ref=e14]:
+            - link "Produtos" [ref=e15] [cursor=pointer]:
+              - /url: produtos.html
+          - listitem [ref=e16]:
+            - link "Comparador" [ref=e17] [cursor=pointer]:
+              - /url: comparador.html
+          - listitem [ref=e18]:
+            - link "Sobre" [ref=e19] [cursor=pointer]:
+              - /url: sobre.html
+          - listitem [ref=e20]:
+            - link "Blog" [ref=e21] [cursor=pointer]:
+              - /url: blog.html
+          - listitem [ref=e22]:
+            - link "Contato" [ref=e23] [cursor=pointer]:
+              - /url: contato.html
+          - listitem [ref=e24]:
+            - link "" [ref=e25] [cursor=pointer]:
+              - /url: carrinho.html
+          - listitem [ref=e27]:
+            - button "Alternar tema claro/escuro" [ref=e28] [cursor=pointer]:
+              - generic [ref=e29]: 
+  - main [ref=e30]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]: 
+          - text: Tecnologia completa para empresas
+        - heading "Tecnologia que impulsiona sua empresa" [level=2] [ref=e36]
+        - paragraph [ref=e37]: Da criação do seu site à automação com inteligência artificial — a TUI Tecnologia cuida de toda a tecnologia da sua empresa com eficiência, segurança e inovação.
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - generic [ref=e40]: 
+            - text: Web
+          - generic [ref=e41]:
+            - generic [ref=e42]: 
+            - text: Software
+          - generic [ref=e43]:
+            - generic [ref=e44]: 
+            - text: IA & Automação
+          - generic [ref=e45]:
+            - generic [ref=e46]: 
+            - text: Infraestrutura
+          - generic [ref=e47]:
+            - generic [ref=e48]: 
+            - text: Marketing
+          - generic [ref=e49]:
+            - generic [ref=e50]: 
+            - text: Kaspersky
+        - generic [ref=e51]:
+          - link "Conhecer Serviços" [ref=e52] [cursor=pointer]:
+            - /url: servicos.html
+          - link "Solicitar Orçamento" [ref=e53] [cursor=pointer]:
+            - /url: contato.html
+      - generic "TUI Tecnologia — soluções completas em tecnologia" [ref=e55]:
+        - generic [ref=e56]:
+          - strong [ref=e57]: TUI
+          - generic [ref=e58]: Tecnologia para todos
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e61]: 
+            - generic [ref=e62]: Web
+          - generic [ref=e63]:
+            - generic [ref=e64]: 
+            - generic [ref=e65]: Software
+          - generic [ref=e66]:
+            - generic [ref=e67]: 
+            - generic [ref=e68]: IA
+          - generic [ref=e69]:
+            - generic [ref=e70]: 
+            - generic [ref=e71]: Infra
+          - generic [ref=e72]:
+            - generic [ref=e73]: 
+            - generic [ref=e74]: Consultoria
+          - generic [ref=e75]:
+            - generic [ref=e76]: 
+            - generic [ref=e77]: Marketing
+        - generic [ref=e78]:
+          - generic [ref=e79]: 
+          - generic [ref=e80]:
+            - strong [ref=e81]: Kaspersky
+            - generic [ref=e82]: Authorized Reseller
+        - generic [ref=e83]:
+          - strong [ref=e84]: Arthur Moretto
+          - link " tuitecnologia@gmail.com" [ref=e85] [cursor=pointer]:
+            - /url: mailto:tuitecnologia@gmail.com
+            - generic [ref=e86]: 
+            - text: tuitecnologia@gmail.com
+          - link " (17) 98815-1758" [ref=e87] [cursor=pointer]:
+            - /url: https://wa.me/5517988151758
+            - generic [ref=e88]: 
+            - text: (17) 98815-1758
+          - generic [ref=e89]:
+            - generic [ref=e90]: 
+            - text: "@tui_tecnologia"
+    - generic [ref=e92]:
+      - heading "Soluções completas para sua empresa" [level=2] [ref=e93]
+      - paragraph [ref=e94]: Tecnologia integrada em todas as frentes do seu negócio — em um só lugar
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: 
+            - heading "Desenvolvimento Web" [level=3] [ref=e100]
+          - paragraph [ref=e101]: Sites profissionais, modernos e otimizados para converter visitantes em clientes.
+          - list [ref=e102]:
+            - listitem [ref=e103]:
+              - generic [ref=e104]: 
+              - text: Websites responsivos e otimizados
+            - listitem [ref=e105]:
+              - generic [ref=e106]: 
+              - text: SEO e rastreamento de conversões
+            - listitem [ref=e107]:
+              - generic [ref=e108]: 
+              - text: Hospedagem e e-mails corporativos
+          - link "Saiba Mais" [ref=e109] [cursor=pointer]:
+            - /url: servicos.html#servicos
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - generic [ref=e112]: 
+            - heading "Desenvolvimento de Software" [level=3] [ref=e114]
+          - paragraph [ref=e115]: Sistemas sob medida que automatizam processos e otimizam a gestão da sua empresa.
+          - list [ref=e116]:
+            - listitem [ref=e117]:
+              - generic [ref=e118]: 
+              - text: Software e sistemas personalizados
+            - listitem [ref=e119]:
+              - generic [ref=e120]: 
+              - text: Dashboards e integrações com APIs
+            - listitem [ref=e121]:
+              - generic [ref=e122]: 
+              - text: Mercado Pago, Sentry e IA generativa
+          - link "Saiba Mais" [ref=e123] [cursor=pointer]:
+            - /url: servicos.html#servicos
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - generic [ref=e126]: 
+            - heading "IA & Automação" [level=3] [ref=e128]
+            - generic [ref=e129]: Novidade
+          - paragraph [ref=e130]: Automatize processos e potencialize seu negócio com as mais modernas ferramentas de IA.
+          - list [ref=e131]:
+            - listitem [ref=e132]:
+              - generic [ref=e133]: 
+              - text: Assistente virtual com IA no seu site
+            - listitem [ref=e134]:
+              - generic [ref=e135]: 
+              - text: Automação de fluxos com n8n
+            - listitem [ref=e136]:
+              - generic [ref=e137]: 
+              - text: E-mail transacional com Resend
+          - link "Saiba Mais" [ref=e138] [cursor=pointer]:
+            - /url: servicos.html#servicos
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: 
+            - heading "Infraestrutura & Suporte" [level=3] [ref=e143]
+          - paragraph [ref=e144]: Mantenha sua empresa funcionando com suporte técnico especializado e infraestrutura confiável.
+          - list [ref=e145]:
+            - listitem [ref=e146]:
+              - generic [ref=e147]: 
+              - text: Suporte técnico especializado
+            - listitem [ref=e148]:
+              - generic [ref=e149]: 
+              - text: Servidores, backup e nuvem
+            - listitem [ref=e150]:
+              - generic [ref=e151]: 
+              - text: Licenças de antivírus e Windows
+          - link "Saiba Mais" [ref=e152] [cursor=pointer]:
+            - /url: servicos.html#servicos
+        - generic [ref=e153]:
+          - generic [ref=e154]:
+            - generic [ref=e155]: 
+            - heading "Consultoria & Gestão de TI" [level=3] [ref=e157]
+          - paragraph [ref=e158]: Estratégia e gestão de tecnologia para empresas que buscam crescer e reduzir custos.
+          - list [ref=e159]:
+            - listitem [ref=e160]:
+              - generic [ref=e161]: 
+              - text: Consultoria estratégica em TI
+            - listitem [ref=e162]:
+              - generic [ref=e163]: 
+              - text: Redução de custos em tecnologia
+            - listitem [ref=e164]:
+              - generic [ref=e165]: 
+              - text: Adequação e orientação em LGPD
+          - link "Saiba Mais" [ref=e166] [cursor=pointer]:
+            - /url: servicos.html#servicos
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - generic [ref=e169]: 
+            - heading "Marketing Digital" [level=3] [ref=e171]
+          - paragraph [ref=e172]: Estratégias digitais para atrair, converter e fidelizar clientes no ambiente online.
+          - list [ref=e173]:
+            - listitem [ref=e174]:
+              - generic [ref=e175]: 
+              - text: Gestão de tráfego pago
+            - listitem [ref=e176]:
+              - generic [ref=e177]: 
+              - text: SEO e otimização para buscadores
+            - listitem [ref=e178]:
+              - generic [ref=e179]: 
+              - text: Google Analytics e campanhas
+          - link "Saiba Mais" [ref=e180] [cursor=pointer]:
+            - /url: servicos.html#servicos
+      - link "Ver Todos os Serviços" [ref=e182] [cursor=pointer]:
+        - /url: servicos.html
+    - generic [ref=e184]:
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - generic [ref=e187]: 
+          - text: Revenda Autorizada
+        - heading "Parceiro Oficial Kaspersky" [level=2] [ref=e188]
+        - paragraph [ref=e189]: Licenças originais com atendimento consultivo, suporte especializado e as melhores condições para residências e empresas.
+      - generic [ref=e190]:
+        - generic [ref=e191]:
+          - generic [ref=e192]: 
+          - heading "Kaspersky Standard" [level=3] [ref=e194]
+          - paragraph [ref=e195]: Proteção essencial contra vírus, ransomware e ataques online
+          - link "Saiba Mais" [ref=e196] [cursor=pointer]:
+            - /url: produtos.html#standard
+        - generic [ref=e197]:
+          - generic [ref=e198]: Mais Popular
+          - generic [ref=e199]: 
+          - heading "Kaspersky Plus" [level=3] [ref=e201]
+          - paragraph [ref=e202]: Proteção avançada com firewall, controle parental e gerenciador de senhas
+          - link "Saiba Mais" [ref=e203] [cursor=pointer]:
+            - /url: produtos.html#plus
+        - generic [ref=e204]:
+          - generic [ref=e205]: 
+          - heading "Kaspersky Premium" [level=3] [ref=e207]
+          - paragraph [ref=e208]: Proteção máxima com VPN ilimitada e monitoramento de identidade
+          - link "Saiba Mais" [ref=e209] [cursor=pointer]:
+            - /url: produtos.html#premium
+      - link "Ver Todos os Produtos" [ref=e211] [cursor=pointer]:
+        - /url: produtos.html
+    - generic [ref=e214]:
+      - heading "Por que escolher a TUI Tecnologia?" [level=2] [ref=e215]
+      - paragraph [ref=e216]: Somos uma empresa de tecnologia completa, com expertise em múltiplas áreas para atender todos os aspectos digitais do seu negócio em um só lugar — com suporte próximo e foco no resultado.
+      - generic [ref=e217]:
+        - generic [ref=e218]:
+          - heading "6+" [level=3] [ref=e219]
+          - paragraph [ref=e220]: Áreas de Atuação
+        - generic [ref=e221]:
+          - heading "100%" [level=3] [ref=e222]
+          - paragraph [ref=e223]: Foco no Cliente
+        - generic [ref=e224]:
+          - heading "24/7" [level=3] [ref=e225]
+          - paragraph [ref=e226]: Suporte Técnico
+    - generic [ref=e228]:
+      - heading "Pronto para transformar sua empresa com tecnologia?" [level=2] [ref=e229]
+      - paragraph [ref=e230]: Fale com a TUI Tecnologia e descubra como podemos ajudar seu negócio a crescer
+      - generic [ref=e231]:
+        - link "Solicitar Orçamento" [ref=e232] [cursor=pointer]:
+          - /url: contato.html
+        - link " Falar no WhatsApp" [ref=e233] [cursor=pointer]:
+          - /url: https://wa.me/5517988151758
+          - generic [ref=e234]: 
+          - text: Falar no WhatsApp
+  - contentinfo [ref=e235]:
+    - generic [ref=e236]:
+      - generic [ref=e237]:
+        - generic [ref=e238]:
+          - heading "TUI Tecnologia" [level=3] [ref=e239]
+          - paragraph [ref=e240]: Soluções completas em tecnologia para empresas e profissionais. Da web à IA, cuidamos de toda a tecnologia do seu negócio.
+          - generic [ref=e241]:
+            - link "Facebook" [ref=e242] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e243]: 
+            - link "Instagram" [ref=e244] [cursor=pointer]:
+              - /url: https://www.instagram.com/tui_tecnologia
+              - generic [ref=e245]: 
+            - link "LinkedIn" [ref=e246] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e247]: 
+            - link "WhatsApp" [ref=e248] [cursor=pointer]:
+              - /url: https://wa.me/5517988151758
+              - generic [ref=e249]: 
+        - generic [ref=e250]:
+          - heading "Serviços" [level=4] [ref=e251]
+          - list [ref=e252]:
+            - listitem [ref=e253]:
+              - link "Desenvolvimento Web" [ref=e254] [cursor=pointer]:
+                - /url: servicos.html#servicos
+            - listitem [ref=e255]:
+              - link "Desenvolvimento de Software" [ref=e256] [cursor=pointer]:
+                - /url: servicos.html#servicos
+            - listitem [ref=e257]:
+              - link "IA & Automação" [ref=e258] [cursor=pointer]:
+                - /url: servicos.html#servicos
+            - listitem [ref=e259]:
+              - link "Infraestrutura & Suporte" [ref=e260] [cursor=pointer]:
+                - /url: servicos.html#servicos
+            - listitem [ref=e261]:
+              - link "Consultoria & Gestão" [ref=e262] [cursor=pointer]:
+                - /url: servicos.html#servicos
+            - listitem [ref=e263]:
+              - link "Marketing Digital" [ref=e264] [cursor=pointer]:
+                - /url: servicos.html#servicos
+        - generic [ref=e265]:
+          - heading "Links Rápidos" [level=4] [ref=e266]
+          - list [ref=e267]:
+            - listitem [ref=e268]:
+              - link "Início" [ref=e269] [cursor=pointer]:
+                - /url: index.html
+            - listitem [ref=e270]:
+              - link "Produtos Kaspersky" [ref=e271] [cursor=pointer]:
+                - /url: produtos.html
+            - listitem [ref=e272]:
+              - link "Sobre Nós" [ref=e273] [cursor=pointer]:
+                - /url: sobre.html
+            - listitem [ref=e274]:
+              - link "Contato" [ref=e275] [cursor=pointer]:
+                - /url: contato.html
+        - generic [ref=e276]:
+          - heading "Contato" [level=4] [ref=e277]
+          - list [ref=e278]:
+            - listitem [ref=e279]:
+              - generic [ref=e280]: 
+              - text: tuitecnologia@gmail.com
+            - listitem [ref=e281]:
+              - generic [ref=e282]: 
+              - text: (17) 98815-1758
+            - listitem [ref=e283]:
+              - generic [ref=e284]: 
+              - text: "@tui_tecnologia"
+            - listitem [ref=e285]:
+              - generic [ref=e286]: 
+              - text: Atendimento online
+      - paragraph [ref=e288]: © 2026 Tui Tecnologia. Todos os direitos reservados.
+  - generic [ref=e289]:
+    - generic:
+      - generic:
+        - generic: 
+        - generic:
+          - strong: Assistente TUI
+          - text: Online agora
+        - button "Fechar assistente":
+          - generic: 
+      - generic:
+        - generic:
+          - generic:
+            - text: Olá! Sou o assistente virtual da
+            - strong: TUI Tecnologia
+            - text: . 👋 Como posso ajudar você hoje?
+          - generic:
+            - button "🌐 Web"
+            - button "💻 Software"
+            - button "🤖 IA"
+            - button "🖥️ Suporte"
+            - button "💰 Orçamento"
+      - generic:
+        - textbox "Digite sua mensagem..."
+        - button "Enviar mensagem":
+          - generic: 
+    - button "Abrir assistente virtual" [ref=e290] [cursor=pointer]:
+      - generic [ref=e291]: 

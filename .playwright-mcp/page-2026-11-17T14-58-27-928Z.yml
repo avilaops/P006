@@ -1,0 +1,106 @@
+- generic [active] [ref=f5e1]:
+  - generic [ref=f5e2]:
+    - complementary [ref=f5e3]:
+      - generic [ref=f5e4]: Avila Transportes Intermunicipal LTDA
+      - navigation [ref=f5e12]:
+        - link "Visão Geral" [ref=f5e81] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f5e88]:
+          - paragraph [ref=f5e89]: Comercial
+          - generic [ref=f5e90]:
+            - link "Clientes" [ref=f5e91] [cursor=pointer]:
+              - /url: /dashboard/clientes
+            - link "Cotações" [ref=f5e98] [cursor=pointer]:
+              - /url: /dashboard/crm
+            - link "WhatsApp" [ref=f5e103] [cursor=pointer]:
+              - /url: /dashboard/crm/whatsapp
+            - link "Tabelas de frete" [ref=f5e107] [cursor=pointer]:
+              - /url: /dashboard/tabelas-frete
+        - generic [ref=f5e111]:
+          - paragraph [ref=f5e112]: Operação
+          - generic [ref=f5e113]:
+            - link "Minutas" [ref=f5e114] [cursor=pointer]:
+              - /url: /dashboard/coletas
+            - link "Depósito" [ref=f5e120] [cursor=pointer]:
+              - /url: /dashboard/deposito
+            - link "Manifestos" [ref=f5e125] [cursor=pointer]:
+              - /url: /dashboard/manifestos
+            - link "Comprovantes" [ref=f5e131] [cursor=pointer]:
+              - /url: /dashboard/comprovantes
+            - link "Ocorrências" [ref=f5e137] [cursor=pointer]:
+              - /url: /dashboard/ocorrencias
+            - link "Notas fiscais" [ref=f5e142] [cursor=pointer]:
+              - /url: /dashboard/fiscal
+        - generic [ref=f5e147]:
+          - paragraph [ref=f5e148]: Financeiro
+          - generic [ref=f5e149]:
+            - link "Faturamento" [ref=f5e150] [cursor=pointer]:
+              - /url: /dashboard/faturamento
+            - link "Cobrança" [ref=f5e155] [cursor=pointer]:
+              - /url: /dashboard/cobranca
+            - link "Financeiro" [ref=f5e160] [cursor=pointer]:
+              - /url: /dashboard/financeiro
+        - generic [ref=f5e164]:
+          - paragraph [ref=f5e165]: Frota
+          - generic [ref=f5e166]:
+            - link "Motoristas" [ref=f5e167] [cursor=pointer]:
+              - /url: /dashboard/motoristas
+            - link "Veículos" [ref=f5e172] [cursor=pointer]:
+              - /url: /dashboard/veiculos
+            - link "Parceiros" [ref=f5e179] [cursor=pointer]:
+              - /url: /dashboard/parceiros
+            - link "Equipe" [ref=f5e186] [cursor=pointer]:
+              - /url: /dashboard/equipe
+            - link "Alertas" [ref=f5e193] [cursor=pointer]:
+              - /url: /dashboard/frota
+        - generic [ref=f5e197]:
+          - paragraph [ref=f5e198]: Sistema
+          - generic [ref=f5e199]:
+            - link "Relatórios" [ref=f5e200] [cursor=pointer]:
+              - /url: /dashboard/relatorios
+            - link "Mensageria" [ref=f5e204] [cursor=pointer]:
+              - /url: /dashboard/mensagens
+            - link "Auditoria" [ref=f5e209] [cursor=pointer]:
+              - /url: /dashboard/auditoria
+            - link "Usuários" [ref=f5e215] [cursor=pointer]:
+              - /url: /dashboard/usuarios
+            - link "Empresa" [ref=f5e229] [cursor=pointer]:
+              - /url: /dashboard/empresa
+            - link "Meu site • cortesia" [ref=f5e235] [cursor=pointer]:
+              - /url: /dashboard/site
+      - generic [ref=f5e13]:
+        - generic [ref=f5e14]:
+          - generic [ref=f5e15]: "N"
+          - generic [ref=f5e16]:
+            - paragraph [ref=f5e17]: Nícolas Rosa Ávila Barros (Ávila Ops)
+            - paragraph [ref=f5e240]: nicolas@avilaops.com
+        - button "Sair do sistema" [ref=f5e18] [cursor=pointer]
+    - main [ref=f5e23]:
+      - generic [ref=f5e24]:
+        - heading "WhatsApp" [level=2] [ref=f5e25]
+        - button "Avisos" [ref=f5e27] [cursor=pointer]
+      - main [ref=f5e32]:
+        - generic [ref=f5e33]:
+          - generic [ref=f5e34]:
+            - generic [ref=f5e35]:
+              - heading "Caixa do WhatsApp" [level=1] [ref=f5e36]
+              - paragraph [ref=f5e37]: Conversas de cotação • histórico sincronizado por empresa
+            - generic [ref=f5e38]:
+              - generic [ref=f5e39]: Desconectado
+              - link "Canais" [ref=f5e41] [cursor=pointer]:
+                - /url: /dashboard/empresa
+              - button "Conectando…" [disabled] [ref=f5e244]
+              - button "Atualizar" [ref=f5e45] [cursor=pointer]
+          - generic [ref=f5e51]:
+            - complementary [ref=f5e52]:
+              - generic [ref=f5e53]:
+                - generic [ref=f5e54]:
+                  - heading "Conversas" [level=2] [ref=f5e55]
+                  - generic [ref=f5e56]: "0"
+                - textbox "Buscar conversa" [ref=f5e57]
+              - generic [ref=f5e58]: Nenhuma conversa ainda. Conecte o WhatsApp para receber cotações.
+            - generic [ref=f5e61]:
+              - heading "Organize as cotações que chegam pelo WhatsApp" [level=2] [ref=f5e65]
+              - paragraph [ref=f5e66]: O histórico fica na caixa do TMS; os anexos são privados no R2 da Ávila Ops.
+              - button "Conectar WhatsApp" [disabled] [ref=f5e243]
+  - alert [ref=f5e78]

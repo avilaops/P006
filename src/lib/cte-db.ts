@@ -877,8 +877,11 @@ async function prepararSvc(empresa: Empresa, collectionId: string, credencial: C
 
 /** Quando há endereço de integração, põe o evento na fila, na mesma transação da mudança. */
 async function avisarIntegracao(tx: Tx, tipo: "cte.autorizado" | "cte.cancelado", cteId: string): Promise<void> {
-  const webhook = await tx.webhook.findFirst({ select: { id: true } });
-  if (!webhook) return;
+  const [webhook, email] = await Promise.all([
+    tx.webhook.findFirst({ select: { id: true } }),
+    tx.tenantEmailSettings.findFirst({ where: { enabled: true }, select: { id: true } }),
+  ]);
+  if (!webhook && !email) return;
   await tx.outboxEvent.create({ data: { type: tipo, payload: { cteId } }, select: { id: true } });
 }
 

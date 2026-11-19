@@ -17,7 +17,7 @@ const previa = {
 
 export const metadata: Metadata = {
   title: {
-    default: "TMS • Ávila Ops",
+    default: "TMS • Avila Ops",
     template: "%s • TMS",
   },
   description:

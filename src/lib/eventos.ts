@@ -10,6 +10,7 @@ import { cobrancasEmAberto } from "@/lib/cobranca-gateway";
 import { conferirCobrancasEmAberto } from "@/lib/cobranca-gateway-db";
 import { localizarEnderecosPendentes } from "@/lib/geo-db";
 import { avisarMdfesEmAberto } from "@/lib/mdfe-db";
+import { enfileirarDocumentosEmail, processarEmailsPendentes } from "@/lib/entregas-email";
 
 /**
  * Entrega dos eventos (OutboxEvent) no endereço que cada empresa cadastrou.
@@ -35,7 +36,7 @@ export const novoSegredo = () => randomBytes(24).toString("base64url");
 /** Assinatura que vai no cabeçalho `X-TMS-Assinatura`: HMAC-SHA256 do corpo, em hexadecimal. */
 export const assinar = (segredo: string, corpo: string) => `sha256=${createHmac("sha256", segredo).update(corpo).digest("hex")}`;
 
-type Pendente = { id: string; tenantId: string; type: string; payload: Prisma.JsonValue; attempts: number; createdAt: Date };
+export type Pendente = { id: string; tenantId: string; type: string; payload: Prisma.JsonValue; attempts: number; createdAt: Date };
 
 const texto = (valor: unknown) => (typeof valor === "string" ? valor : null);
 
@@ -120,6 +121,12 @@ async function dadosDoTituloVencido(evento: Pendente, payload: Record<string, un
       })
     : null;
   const pix = titulo && titulo.status === "PENDING" ? pixDoTitulo(await recebedorDoEvento(evento), { id: titulo.id, amount: titulo.amount, invoice: titulo.invoice }) : null;
+  const cobrancas = titulo?.invoice?.id
+    ? cobrancasEmAberto(await sistema.paymentCharge.findMany({
+        where: { invoiceId: titulo.invoice.id, tenantId: evento.tenantId, status: "PENDING" },
+        select: { kind: true, status: true, createdAt: true, pixCode: true, ticketUrl: true, digitableLine: true, expiresAt: true },
+      }))
+    : null;
   return {
     titulo: titulo && {
       id: titulo.id,
@@ -134,6 +141,12 @@ async function dadosDoTituloVencido(evento: Pendente, payload: Record<string, un
       pagador: titulo.client ? null : titulo.counterparty,
       // Pix Copia e Cola estático do título em aberto, se a empresa tem chave: a baixa segue manual.
       ...(pix && { pixCopiaECola: pix }),
+      ...((cobrancas?.pix || cobrancas?.boleto) && {
+        cobranca: {
+          pix: cobrancas.pix && { copiaECola: cobrancas.pix.pixCode, link: cobrancas.pix.ticketUrl, venceEm: cobrancas.pix.expiresAt.toISOString() },
+          boleto: cobrancas.boleto && { link: cobrancas.boleto.ticketUrl, linhaDigitavel: cobrancas.boleto.digitableLine, venceEm: cobrancas.boleto.expiresAt.toISOString() },
+        },
+      }),
     },
   };
 }
@@ -295,14 +308,14 @@ async function dadosDoMdfe(evento: Pendente, payload: Record<string, unknown>) {
   };
 }
 
-async function dadosDoEvento(evento: Pendente): Promise<Record<string, unknown>> {
+export async function dadosDoEvento(evento: Pendente): Promise<Record<string, unknown>> {
   const payload = (evento.payload ?? {}) as Record<string, unknown>;
   if (evento.type.startsWith("fatura.")) return dadosDaFatura(evento, payload);
   if (evento.type === "cte.autorizado" || evento.type === "cte.cancelado") return dadosDoCte(evento, payload);
   if (evento.type === "mdfe.autorizado" || evento.type === "mdfe.encerrado" || evento.type === "mdfe.cancelado") return dadosDoMdfe(evento, payload);
   if (evento.type.startsWith("ocorrencia.")) return dadosDaOcorrencia(evento, payload);
   if (evento.type === "cobranca.vencida") return dadosDoTituloVencido(evento, payload);
-  if (evento.type !== "coleta.status") return payload;
+  if (evento.type !== "coleta.status" && evento.type !== "comprovante.aprovado") return payload;
 
   const collectionId = texto(payload.collectionId);
   const coleta = collectionId
@@ -350,16 +363,14 @@ async function dadosDoEvento(evento: Pendente): Promise<Record<string, unknown>>
 }
 
 async function entregar(evento: Pendente): Promise<string | null> {
-  const webhook = await sistema.webhook.findUnique({
+  const [webhook, tenant, emailSettings] = await Promise.all([
+    sistema.webhook.findUnique({
     where: { tenantId: evento.tenantId },
     select: { url: true, secret: true, tenant: { select: { id: true, slug: true, name: true } } },
-  });
-  // A empresa tirou o endereço depois de o evento nascer: não há para onde mandar.
-  if (!webhook) return "Endereço removido.";
-
-  // O DNS pode ter mudado desde que o endereço foi salvo.
-  const destino = await conferirEnderecoPublico(webhook.url);
-  if (!destino.ok) return destino.erro;
+    }),
+    sistema.tenant.findUnique({ where: { id: evento.tenantId }, select: { id: true, slug: true, name: true } }),
+    sistema.tenantEmailSettings.findUnique({ where: { tenantId: evento.tenantId }, select: { enabled: true } }),
+  ]);
 
   const dados = await dadosDoEvento(evento);
   // A seleção não executa envios. Destinos externos recebem uma intenção
@@ -374,11 +385,20 @@ async function entregar(evento: Pendente): Promise<string | null> {
       })
     : null;
   const destinatarios = selecionarDestinatarios(evento.type, dados, cadastro?.notificationRecipients, cadastro?.notificationPreferences);
+  if (emailSettings?.enabled) await enfileirarDocumentosEmail(evento, destinatarios, dados);
+
+  // O e-mail tem sua própria fila e seu próprio estado em DocumentDelivery.
+  // Sem webhook, a criação dos envios documentais encerra o evento de origem.
+  if (!webhook) return null;
+
+  // O DNS pode ter mudado desde que o endereço foi salvo.
+  const destino = await conferirEnderecoPublico(webhook.url);
+  if (!destino.ok) return destino.erro;
   const corpo = JSON.stringify({
     id: evento.id,
     tipo: evento.type,
     criadoEm: evento.createdAt.toISOString(),
-    empresa: { id: webhook.tenant.id, slug: webhook.tenant.slug, nome: webhook.tenant.name },
+    empresa: { id: tenant?.id ?? webhook.tenant.id, slug: tenant?.slug ?? webhook.tenant.slug, nome: tenant?.name ?? webhook.tenant.name },
     dados,
     notificacaoDocumental: { destinatarios, requerConfirmacaoDeDocumento: true, envioExecutado: false },
   });
@@ -435,6 +455,8 @@ export async function despacharPendentes(): Promise<{ entregues: number; falhas:
     if (erro === null) entregues += 1;
     else falhas += 1;
   }
+  const email = await processarEmailsPendentes();
+  if (email.falhas) console.error(`Falharam ${email.falhas} envios documentais por e-mail nesta volta.`);
   return { entregues, falhas };
 }
 
@@ -450,8 +472,9 @@ export async function avisarTitulosVencidos(): Promise<number> {
     SELECT gen_random_uuid()::text, t."tenantId", 'cobranca.vencida', jsonb_build_object('transactionId', t.id), now(), now(), 0,
            'cobranca.vencida:' || t.id || ':' || to_char(t."dueDate", 'YYYY-MM-DD')
       FROM "FinancialTransaction" t
-      JOIN "Webhook" w ON w."tenantId" = t."tenantId"
-     WHERE t.type = 'INCOME' AND t.status = 'PENDING' AND t."dueDate" IS NOT NULL
+     WHERE (EXISTS (SELECT 1 FROM "Webhook" w WHERE w."tenantId" = t."tenantId")
+        OR EXISTS (SELECT 1 FROM "TenantEmailSettings" s WHERE s."tenantId" = t."tenantId" AND s.enabled))
+       AND t.type = 'INCOME' AND t.status = 'PENDING' AND t."dueDate" IS NOT NULL
        -- Vence no fim do dia, pelo relógio do Brasil; o vencimento é um dia do calendário.
        AND t."dueDate"::date < (now() AT TIME ZONE 'America/Sao_Paulo')::date
     ON CONFLICT ("dedupeKey") DO NOTHING`);

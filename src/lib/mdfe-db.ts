@@ -831,8 +831,11 @@ type EventoDeIntegracao = "mdfe.autorizado" | "mdfe.encerrado" | "mdfe.cancelado
 
 /** Quando há endereço de integração, põe o evento na fila, na mesma transação da mudança. */
 async function avisarIntegracao(tx: Tx, tipo: EventoDeIntegracao, mdfeId: string): Promise<void> {
-  const webhook = await tx.webhook.findFirst({ select: { id: true } });
-  if (!webhook) return;
+  const [webhook, email] = await Promise.all([
+    tx.webhook.findFirst({ select: { id: true } }),
+    tx.tenantEmailSettings.findFirst({ where: { enabled: true }, select: { id: true } }),
+  ]);
+  if (!webhook && !email) return;
   await tx.outboxEvent.create({ data: { type: tipo, payload: { mdfeId } }, select: { id: true } });
 }
 
